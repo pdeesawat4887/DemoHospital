@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "509635355672",
+    "firebase_url": "https://fir-4c457.firebaseio.com",
+    "project_id": "fir-4c457",
+    "storage_bucket": "fir-4c457.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:509635355672:android:ac08a13ee5137ce0",
+        "android_client_info": {
+          "package_name": "com.example.pacharapoldeesawat.demohospital"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "509635355672-ntdh0i6561vdb88sqct59u3hrua18clt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pacharapoldeesawat.demohospital",
+            "certificate_hash": "774e9888ff3ad9712abedcb501fe20095656f51c"
+          }
+        },
+        {
+          "client_id": "509635355672-45vfog2r7ve4se0avl4drobhjjf3ceui.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1DQEK2Q1N8KsCTZcID24LhimiPY4Lpnw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "509635355672-45vfog2r7ve4se0avl4drobhjjf3ceui.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

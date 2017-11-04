@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">DulexHospital</string>
+    <string name="title_activity_testmain2">testmain2</string>
+    <string name="title_activity_minimenu">Minimenu</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_miniinapp">Miniinapp</string>
+    <string name="title_activity_manage">Manage</string>
+    <string name="title_activity_test">test</string>
+    <string name="title_activity_setting">Setting</string>
+</resources>
