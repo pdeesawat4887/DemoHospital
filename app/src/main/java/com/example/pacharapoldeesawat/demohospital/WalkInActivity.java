@@ -2,6 +2,7 @@ package com.example.pacharapoldeesawat.demohospital;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.DisplayMetrics;
@@ -40,8 +41,9 @@ public class WalkInActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_minimenu);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.walkin_title);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("");
+
 
         Button walkIn = findViewById(R.id.walkbtn);
 

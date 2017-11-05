@@ -15,4 +15,5 @@
     <string name="citizenId">หมายเลขประจำตัวประชาชน</string>
     <string name="login">เข้าสู่ระบบ</string>
     <string name="walkin">จองคิว</string>
+    <string name="walkin_title">จองคิวผู้ป่วยที่โรงพยาบาล</string>
 </resources>
