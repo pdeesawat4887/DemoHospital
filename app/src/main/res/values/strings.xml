@@ -11,4 +11,8 @@
     <string name="title_activity_manage">Manage</string>
     <string name="title_activity_test">test</string>
     <string name="title_activity_setting">Setting</string>
+    <string name="splash">กำลังเข้าสู่ระบบ...</string>
+    <string name="citizenId">หมายเลขประจำตัวประชาชน</string>
+    <string name="login">เข้าสู่ระบบ</string>
+    <string name="walkin">จองคิว</string>
 </resources>

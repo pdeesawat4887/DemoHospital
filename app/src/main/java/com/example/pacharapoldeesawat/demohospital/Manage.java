@@ -1,14 +1,9 @@
 package com.example.pacharapoldeesawat.demohospital;
 
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 import android.view.Gravity;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -34,7 +29,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class Manage extends AppCompatActivity
@@ -236,7 +230,7 @@ public class Manage extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            Intent it = new Intent(Manage.this, Minimenu.class);
+            Intent it = new Intent(Manage.this, WalkInActivity.class);
             startActivity(it);
         } else if (id == R.id.nav_gallery) {
             Intent it = new Intent(Manage.this, Miniinapp.class);

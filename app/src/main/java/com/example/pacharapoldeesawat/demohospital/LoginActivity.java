@@ -25,7 +25,7 @@ import rebus.permissionutils.PermissionEnum;
 import rebus.permissionutils.PermissionManager;
 
 
-public class login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private EditText usrusr;
     private TextView sup;
@@ -44,7 +44,8 @@ public class login extends AppCompatActivity {
                 .askagain(true)
                 .ask();
 
-        boolean isFirstTime = MyPreferences.isFirst(login.this);
+
+        boolean isFirstTime = MyPreferences.isFirst(LoginActivity.this);
         Log.i("First time", String.valueOf(isFirstTime));
 
         if (!isFirstTime) {
@@ -55,10 +56,10 @@ public class login extends AppCompatActivity {
 
             if (person.getCitizenId() != null) {
                 if (person.getRole().equals("user")) {
-                    Intent it = new Intent(login.this, Miniinapp.class);
+                    Intent it = new Intent(LoginActivity.this, Miniinapp.class);
                     startActivity(it);
                 } else if (person.getRole().equals("nurse")) {
-                    Intent it = new Intent(login.this, Minimenu.class);
+                    Intent it = new Intent(LoginActivity.this, WalkInActivity.class);
                     startActivity(it);
                 }
             }
@@ -66,11 +67,11 @@ public class login extends AppCompatActivity {
 
             lin = findViewById(R.id.lin);
             usrusr = findViewById(R.id.usrusr);
-            sup = findViewById(R.id.sup);
+//            sup = findViewById(R.id.sup);
             Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/LatoLight.ttf");
             Typeface custom_font1 = Typeface.createFromAsset(getAssets(), "fonts/LatoRegular.ttf");
             lin.setTypeface(custom_font1);
-            sup.setTypeface(custom_font);
+//            sup.setTypeface(custom_font);
             usrusr.setTypeface(custom_font);
 
             lin.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +94,7 @@ public class login extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot snapshot) {
                             if (snapshot.child(string2).exists()) {
-                                Toast.makeText(login.this, "Citizen " + string2 + " logged in.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Citizen " + string2 + " logged in.", Toast.LENGTH_SHORT).show();
                                 //Log.i("First Store", mPrefs.getString("citizenId", null));
                                 String xxx = snapshot.child(string2).getValue(String.class);
                                 person.setCitizenId(string2);
@@ -107,14 +108,14 @@ public class login extends AppCompatActivity {
                                 prefsEditor2.commit();
 
                                 if (person.getRole().equals("nurse")) {
-                                    Intent it = new Intent(login.this, Minimenu.class);
+                                    Intent it = new Intent(LoginActivity.this, WalkInActivity.class);
                                     startActivity(it);
                                 } else {
-                                    Intent it = new Intent(login.this, Miniinapp.class);
+                                    Intent it = new Intent(LoginActivity.this, Miniinapp.class);
                                     startActivity(it);
                                 }
                             } else {
-                                Toast.makeText(login.this, "Citizen Invalid", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Citizen Invalid", Toast.LENGTH_SHORT).show();
                             }
                         }
 

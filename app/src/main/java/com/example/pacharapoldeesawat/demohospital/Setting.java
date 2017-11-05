@@ -3,8 +3,6 @@ package com.example.pacharapoldeesawat.demohospital;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -104,7 +102,7 @@ public class Setting extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            Intent it = new Intent(Setting.this, Minimenu.class);
+            Intent it = new Intent(Setting.this, WalkInActivity.class);
             startActivity(it);
         } else if (id == R.id.nav_gallery) {
             Intent it = new Intent(Setting.this, Miniinapp.class);

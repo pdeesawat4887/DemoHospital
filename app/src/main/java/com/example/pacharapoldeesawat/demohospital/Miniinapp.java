@@ -1,11 +1,9 @@
 package com.example.pacharapoldeesawat.demohospital;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,13 +12,10 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.os.StrictMode;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -55,9 +50,6 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 
-import rebus.permissionutils.PermissionEnum;
-import rebus.permissionutils.PermissionManager;
-
 
 public class Miniinapp extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -91,6 +83,8 @@ public class Miniinapp extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_miniinapp);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Hello, World");
+//        toolbar.setLogo(R.drawable.ic_phone);
         setSupportActionBar(toolbar);
 
 
@@ -98,6 +92,7 @@ public class Miniinapp extends AppCompatActivity
         Gson gson3 = new Gson();
         String json3 = mPrefs2.getString("MyObjectUser", "");
         obj = gson3.fromJson(json3, User.class);
+
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -251,7 +246,7 @@ public class Miniinapp extends AppCompatActivity
 
         if (id == R.id.nav_walk_inapp) {
             if (obj.getRole().equals("nurse")) {
-                Intent it = new Intent(Miniinapp.this, Minimenu.class);
+                Intent it = new Intent(Miniinapp.this, WalkInActivity.class);
                 startActivity(it);
             } else {
                 Toast.makeText(getApplicationContext(), "ไม่อนุญาตให้เข้าได้", Toast.LENGTH_SHORT).show();

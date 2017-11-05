@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +29,7 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 
-public class Minimenu extends AppCompatActivity
+public class WalkInActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private User obj;
@@ -39,6 +41,8 @@ public class Minimenu extends AppCompatActivity
         setContentView(R.layout.activity_minimenu);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Button walkIn = findViewById(R.id.walkbtn);
 
         SharedPreferences mPrefs2 = getSharedPreferences("label", 0);
         SharedPreferences.Editor mPerfsEdit = mPrefs2.edit();
@@ -56,7 +60,7 @@ public class Minimenu extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 queueA_num_text.setText("ตอนนี้มีคิว " + dataSnapshot.getValue() + " คิวแหละ");
-                Toast.makeText(Minimenu.this, "จองคิว A" + dataSnapshot.getValue() + " ให้แล้วนะยะ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(WalkInActivity.this, "จองคิว A" + dataSnapshot.getValue() + " ให้แล้วนะยะ", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -67,7 +71,7 @@ public class Minimenu extends AppCompatActivity
 
         queueA_num_text = findViewById(R.id.queueA_count);
 
-        Button walkIn = findViewById(R.id.walkbtn);
+
         walkIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,24 +133,24 @@ public class Minimenu extends AppCompatActivity
 
         if (id == R.id.nav_walk) {
             if (obj.getRole().equals("nurse")){
-            Intent it = new Intent(Minimenu.this, Minimenu.class);
+            Intent it = new Intent(WalkInActivity.this, WalkInActivity.class);
             startActivity(it);
             } else {
                 Toast.makeText(getApplicationContext(),"ไม่อนุญาตให้เข้าได้",Toast.LENGTH_SHORT).show();
             }
         } else if (id == R.id.nav_phone) {
-            Intent it = new Intent(Minimenu.this, Miniinapp.class);
+            Intent it = new Intent(WalkInActivity.this, Miniinapp.class);
             startActivity(it);
         } else if (id == R.id.nav_manage) {
             if (obj.getRole().equals("nurse")){
-            Intent it = new Intent(Minimenu.this, Manage.class);
+            Intent it = new Intent(WalkInActivity.this, Manage.class);
             startActivity(it);
             } else {
                 Toast.makeText(getApplicationContext(),"ไม่อนุญาตให้เข้าได้",Toast.LENGTH_SHORT).show();
             }
         } else if (id == R.id.nav_setting) {
             if (obj.getRole().equals("nurse")){
-                Intent it = new Intent(Minimenu.this, Setting.class);
+                Intent it = new Intent(WalkInActivity.this, Setting.class);
                 startActivity(it);
             } else {
                 Toast.makeText(getApplicationContext(),"ไม่อนุญาตให้เข้าได้",Toast.LENGTH_SHORT).show();
