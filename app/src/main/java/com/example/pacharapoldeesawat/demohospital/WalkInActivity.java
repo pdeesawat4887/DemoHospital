@@ -41,6 +41,7 @@ public class WalkInActivity extends AppCompatActivity
         setContentView(R.layout.activity_minimenu);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitle("");
 
         Button walkIn = findViewById(R.id.walkbtn);
 
