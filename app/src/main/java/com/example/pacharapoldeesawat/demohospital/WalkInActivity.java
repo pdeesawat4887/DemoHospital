@@ -2,9 +2,14 @@ package com.example.pacharapoldeesawat.demohospital;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.design.internal.NavigationMenu;
+import android.support.v4.app.ActivityCompat;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -35,35 +40,34 @@ public class WalkInActivity extends AppCompatActivity
 
     private User obj;
     private TextView queueA_num_text;
+    private long countA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_minimenu);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.walkin_title);
+        toolbar.setTitle(R.string.out_patient);
         setSupportActionBar(toolbar);
 
-
-        Button walkIn = findViewById(R.id.walkbtn);
-
+        /** Get User Object when user login at first time */
         SharedPreferences mPrefs2 = getSharedPreferences("label", 0);
         SharedPreferences.Editor mPerfsEdit = mPrefs2.edit();
-
         Gson gson3 = new Gson();
         String json3 = mPrefs2.getString("MyObjectUser", "");
         obj = gson3.fromJson(json3, User.class);
 
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        queueA_num_text = findViewById(R.id.queueA_count);
         DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-
         root.child("A").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                queueA_num_text.setText("ตอนนี้มีคิว " + dataSnapshot.getValue() + " คิวแหละ");
-                Toast.makeText(WalkInActivity.this, "จองคิว A" + dataSnapshot.getValue() + " ให้แล้วนะยะ", Toast.LENGTH_SHORT).show();
+                countA = (long) dataSnapshot.getValue();
+                queueA_num_text.setText("ตอนนี้มีผู้ป่วยรับคิวแล้ว " + countA + " คิว");
             }
 
             @Override
@@ -72,14 +76,14 @@ public class WalkInActivity extends AppCompatActivity
             }
         });
 
-        queueA_num_text = findViewById(R.id.queueA_count);
 
-
+        Button walkIn = findViewById(R.id.walkbtn);
         walkIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
                     InsertQueue.updateQueue("A", obj.getCitizenId());
+                    Toast.makeText(WalkInActivity.this, "จองคิว A" + (countA+1) + " เรียบร้อยแล้ว", Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -94,6 +98,20 @@ public class WalkInActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View header=navigationView.getHeaderView(0);
+
+        ImageView avatar = (ImageView) header.findViewById(R.id.avatar);
+        if (obj.getRole().equals("nurse")){
+            avatar.setImageResource(R.drawable.ic_021_nurse);
+        } else {
+            avatar.setImageResource(R.drawable.ic_009_sick);
+        }
+
+        TextView role = (TextView)header.findViewById(R.id.userRole);
+        role.setText(obj.getRole().toUpperCase());
+        TextView id = (TextView) header.findViewById(R.id.id);
+        id.setText("ID : "+obj.getCitizenId());
+
     }
 
     @Override

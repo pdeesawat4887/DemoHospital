@@ -1,6 +1,7 @@
 package com.example.pacharapoldeesawat.demohospital;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -15,18 +16,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pacharapoldeesawat.demohospital.Model.Queue;
+import com.example.pacharapoldeesawat.demohospital.Model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.Timer;
 
@@ -44,6 +48,7 @@ public class Manage extends AppCompatActivity
     private Timer timer;
     private TextView t2v;
     private int index;
+    private User obj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +56,12 @@ public class Manage extends AppCompatActivity
         setContentView(R.layout.activity_manage);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        SharedPreferences mPrefs2 = getSharedPreferences("label", 0);
+        SharedPreferences.Editor mPerfsEdit = mPrefs2.edit();
+        Gson gson3 = new Gson();
+        String json3 = mPrefs2.getString("MyObjectUser", "");
+        obj = gson3.fromJson(json3, User.class);
 
         stk = findViewById(R.id.table_main);
         TableRow tbrow0 = new TableRow(this);
@@ -140,6 +151,19 @@ public class Manage extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View header=navigationView.getHeaderView(0);
+
+        ImageView avatar = (ImageView) header.findViewById(R.id.avatar);
+        if (obj.getRole().equals("nurse")){
+            avatar.setImageResource(R.drawable.ic_021_nurse);
+        } else {
+            avatar.setImageResource(R.drawable.ic_009_sick);
+        }
+
+        TextView role = (TextView)header.findViewById(R.id.userRole);
+        role.setText(obj.getRole().toUpperCase());
+        TextView id = (TextView) header.findViewById(R.id.id);
+        id.setText("ID : "+obj.getCitizenId());
     }
 
     public void countdown(final TextView textTime, long time, long sec) {
@@ -229,18 +253,31 @@ public class Manage extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            Intent it = new Intent(Manage.this, WalkInActivity.class);
-            startActivity(it);
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_walk) {
+            if (obj.getRole().equals("nurse")){
+                Intent it = new Intent(Manage.this, WalkInActivity.class);
+                startActivity(it);
+            } else {
+                Toast.makeText(getApplicationContext(),"ไม่อนุญาตให้เข้าได้",Toast.LENGTH_SHORT).show();
+            }
+        } else if (id == R.id.nav_phone) {
             Intent it = new Intent(Manage.this, Miniinapp.class);
             startActivity(it);
         } else if (id == R.id.nav_manage) {
-            Intent it = new Intent(Manage.this, Manage.class);
-            startActivity(it);
+            if (obj.getRole().equals("nurse")){
+                Intent it = new Intent(Manage.this, Manage.class);
+                startActivity(it);
+            } else {
+                Toast.makeText(getApplicationContext(),"ไม่อนุญาตให้เข้าได้",Toast.LENGTH_SHORT).show();
+            }
         } else if (id == R.id.nav_setting) {
-            Intent it = new Intent(Manage.this, Setting.class);
-            startActivity(it);
+            if (obj.getRole().equals("nurse")){
+                Intent it = new Intent(Manage.this, Setting.class);
+                startActivity(it);
+            } else {
+                Toast.makeText(getApplicationContext(),"ไม่อนุญาตให้เข้าได้",Toast.LENGTH_SHORT).show();
+            }
+
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

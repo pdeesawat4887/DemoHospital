@@ -29,6 +29,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -199,6 +200,19 @@ public class Miniinapp extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View header=navigationView.getHeaderView(0);
+
+        ImageView avatar = (ImageView) header.findViewById(R.id.avatar);
+        if (obj.getRole().equals("nurse")){
+            avatar.setImageResource(R.drawable.ic_021_nurse);
+        } else {
+            avatar.setImageResource(R.drawable.ic_009_sick);
+        }
+
+        TextView role = (TextView)header.findViewById(R.id.userRole);
+        role.setText(obj.getRole().toUpperCase());
+        TextView id = (TextView) header.findViewById(R.id.id);
+        id.setText("ID : "+obj.getCitizenId());
     }
 
     @Override
@@ -244,7 +258,7 @@ public class Miniinapp extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_walk_inapp) {
+        if (id == R.id.nav_walk) {
             if (obj.getRole().equals("nurse")) {
                 Intent it = new Intent(Miniinapp.this, WalkInActivity.class);
                 startActivity(it);

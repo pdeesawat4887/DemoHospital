@@ -49,9 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="10dp"
-            android:letterSpacing="0.2"
             android:textColor="#2364AA"
-            android:text="Helloworld"
             android:textSize="18sp"
             android:paddingBottom="10dp"/>
     </LinearLayout>

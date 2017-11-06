@@ -1,36 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_walk"
-            android:icon="@drawable/ic_walk"
-            android:title="Walk-in" />
-        <item
-            android:id="@+id/nav_phone"
-            android:icon="@drawable/ic_phone"
-            android:title="In-App" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Queue Manage" />
-        <item
-            android:id="@+id/nav_setting"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Setting" />
-    </group>
-
-    <item android:title="Communicate">
+    <item android:title="@string/in_patient">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_phone"
+                android:icon="@drawable/ic_030_technology_1"
+                android:title="จองคิวผ่านแอพิเคชั่น" />
         </menu>
     </item>
-
+    <item android:title="@string/nurse">
+        <menu>
+            <item
+                android:id="@+id/nav_walk"
+                android:icon="@drawable/ic_walk"
+                android:title="@string/out_patient" />
+            <item
+                android:id="@+id/nav_manage"
+                android:icon="@drawable/ic_007_loudspeaker"
+                android:title="เรียกคิวผู้ป่วย" />
+            <item
+                android:id="@+id/nav_setting"
+                android:icon="@drawable/ic_003_interface"
+                android:title="@string/setting" />
+        </menu>
+    </item>
 </menu>

@@ -2,6 +2,7 @@ package com.example.pacharapoldeesawat.demohospital;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -14,13 +15,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pacharapoldeesawat.demohospital.Model.User;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
 
 public class Setting extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private User obj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +35,12 @@ public class Setting extends AppCompatActivity
         setContentView(R.layout.activity_setting);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        SharedPreferences mPrefs2 = getSharedPreferences("label", 0);
+        SharedPreferences.Editor mPerfsEdit = mPrefs2.edit();
+        Gson gson3 = new Gson();
+        String json3 = mPrefs2.getString("MyObjectUser", "");
+        obj = gson3.fromJson(json3, User.class);
 
         Button reset = findViewById(R.id.resetAll);
         reset.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +74,19 @@ public class Setting extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View header=navigationView.getHeaderView(0);
+
+        ImageView avatar = (ImageView) header.findViewById(R.id.avatar);
+        if (obj.getRole().equals("nurse")){
+            avatar.setImageResource(R.drawable.ic_021_nurse);
+        } else {
+            avatar.setImageResource(R.drawable.ic_009_sick);
+        }
+
+        TextView role = (TextView)header.findViewById(R.id.userRole);
+        role.setText(obj.getRole().toUpperCase());
+        TextView id = (TextView) header.findViewById(R.id.id);
+        id.setText("ID : "+obj.getCitizenId());
     }
 
     @Override
@@ -101,18 +127,31 @@ public class Setting extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            Intent it = new Intent(Setting.this, WalkInActivity.class);
-            startActivity(it);
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_walk) {
+            if (obj.getRole().equals("nurse")){
+                Intent it = new Intent(Setting.this, WalkInActivity.class);
+                startActivity(it);
+            } else {
+                Toast.makeText(getApplicationContext(),"ไม่อนุญาตให้เข้าได้",Toast.LENGTH_SHORT).show();
+            }
+        } else if (id == R.id.nav_phone) {
             Intent it = new Intent(Setting.this, Miniinapp.class);
             startActivity(it);
         } else if (id == R.id.nav_manage) {
-            Intent it = new Intent(Setting.this, Manage.class);
-            startActivity(it);
+            if (obj.getRole().equals("nurse")){
+                Intent it = new Intent(Setting.this, Manage.class);
+                startActivity(it);
+            } else {
+                Toast.makeText(getApplicationContext(),"ไม่อนุญาตให้เข้าได้",Toast.LENGTH_SHORT).show();
+            }
         } else if (id == R.id.nav_setting) {
-            Intent it = new Intent(Setting.this, Setting.class);
-            startActivity(it);
+            if (obj.getRole().equals("nurse")){
+                Intent it = new Intent(Setting.this, Setting.class);
+                startActivity(it);
+            } else {
+                Toast.makeText(getApplicationContext(),"ไม่อนุญาตให้เข้าได้",Toast.LENGTH_SHORT).show();
+            }
+
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
