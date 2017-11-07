@@ -41,6 +41,10 @@ public class InsertQueue {
 
                 root.child(String.valueOf(timeBox)).child(type).setValue(countPerBox);
                 root.child(type).setValue(count);
+
+                if (type.equals("B")){
+                    root.child("queueB_Oneday").child(qqq.getId()).setValue(count);
+                }
             }
 
             @Override
@@ -51,8 +55,12 @@ public class InsertQueue {
 
     }
 
-    public int getTimeB(){
+    public int getTimeB() {
         return timeBox;
+    }
+
+    public long getCount() {
+        return count;
     }
 
 }

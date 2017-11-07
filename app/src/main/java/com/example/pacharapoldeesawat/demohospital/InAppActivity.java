@@ -52,7 +52,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 
 
-public class Miniinapp extends AppCompatActivity
+public class InAppActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -76,6 +76,7 @@ public class Miniinapp extends AppCompatActivity
     private long UPDATE_INTERVAL = 2 * 1000;    // 10 sec
     private long FASTEST_INTERVAL = 2000;       // 2 sec
     private LocationManager locationManager;
+    private long queueB;
 
     private boolean doubleBackToExitPressedOnce = true;
 
@@ -84,9 +85,11 @@ public class Miniinapp extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_miniinapp);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Hello, World");
+        toolbar.setTitle(R.string.in_patient_reserve);
 //        toolbar.setLogo(R.drawable.ic_phone);
         setSupportActionBar(toolbar);
+
+        final TextView youQ = (TextView) findViewById(R.id.youQ);
 
 
         SharedPreferences mPrefs2 = getSharedPreferences("label", 0);
@@ -113,10 +116,18 @@ public class Miniinapp extends AppCompatActivity
 
 
         DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-        root.child("useQueue").addValueEventListener(new ValueEventListener() {
+        root.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                remainQ.setText("ตอนนี้มีคิว " + dataSnapshot.getChildrenCount() + " คิวแหละ");
+                remainQ.setText("รอคิวประมาณ " + (dataSnapshot.child("useQueue").getChildrenCount()*4) + " นาที");
+
+                if (dataSnapshot.child("queueB_Oneday").child(obj.getCitizenId()).getValue() != null){
+                    queueB = (long) dataSnapshot.child("queueB_Oneday").child(obj.getCitizenId()).getValue();
+                    youQ.setText("คิวของคุณคือ B"+ queueB);
+                }else {
+                    youQ.setText("คุณยังไม่ได้ทำการจองคิว");
+                }
+
             }
 
             @Override
@@ -150,31 +161,16 @@ public class Miniinapp extends AppCompatActivity
                             long checkLimit = (long) dataSnapshot.child(String.valueOf(checkTimeBox)).child("B").getValue();
 
                             if (checkLimit > 9) {
-                                Toast.makeText(getApplicationContext(), "ขออภัยในความไม่สะดวกตอนนี้คิวเต็ม กรุณากดใหม่ หลหังจากนี้ ??? นาที", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "ขออภัยในความไม่สะดวกตอนนี้คิวเต็ม กรุณากดใหม่ หลังจากนี้ ??? นาที", Toast.LENGTH_LONG).show();
                             } else {
                                 if (dataSnapshot.child("queueB_Oneday").child(obj.getCitizenId()).exists()) {
-                                    Toast.makeText(getApplicationContext(), "You already reserve queue.", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "คุณทำการจองคิวไปแล้ว", Toast.LENGTH_LONG).show();
                                 } else {
                                     if (distanceInMeters > 300000) {
-                                        Toast.makeText(getApplicationContext(), "You are far away from hospital", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), "คุณอยู่ห่างจากโรงพยาบาลเกิน 1.5 กิโลเมตร", Toast.LENGTH_LONG).show();
                                     } else {
                                         InsertQueue newQueue = new InsertQueue();
                                         newQueue.updateQueue("B", obj.getCitizenId());
-                                        root2.child("queueB_Oneday").child(obj.getCitizenId()).setValue(1);
-
-                                        DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                                        root.child("B").addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(DataSnapshot dataSnapshot) {
-//                queueA_num_text.setText("ตอนนี้มีคิว " + dataSnapshot.getValue() + " คิวแหละ");
-                                                Toast.makeText(Miniinapp.this, "จองคิว B" + dataSnapshot.getValue() + " ให้แล้วนะยะ", Toast.LENGTH_SHORT).show();
-                                            }
-
-                                            @Override
-                                            public void onCancelled(DatabaseError databaseError) {
-
-                                            }
-                                        });
                                     }
                                 }
                             }
@@ -260,24 +256,24 @@ public class Miniinapp extends AppCompatActivity
 
         if (id == R.id.nav_walk) {
             if (obj.getRole().equals("nurse")) {
-                Intent it = new Intent(Miniinapp.this, WalkInActivity.class);
+                Intent it = new Intent(InAppActivity.this, WalkInActivity.class);
                 startActivity(it);
             } else {
                 Toast.makeText(getApplicationContext(), "ไม่อนุญาตให้เข้าได้", Toast.LENGTH_SHORT).show();
             }
         } else if (id == R.id.nav_phone_inapp) {
-            Intent it = new Intent(Miniinapp.this, Miniinapp.class);
+            Intent it = new Intent(InAppActivity.this, InAppActivity.class);
             startActivity(it);
         } else if (id == R.id.nav_manage) {
             if (obj.getRole().equals("nurse")) {
-                Intent it = new Intent(Miniinapp.this, Manage.class);
+                Intent it = new Intent(InAppActivity.this, CallQueue.class);
                 startActivity(it);
             } else {
                 Toast.makeText(getApplicationContext(), "ไม่อนุญาตให้เข้าได้", Toast.LENGTH_SHORT).show();
             }
         } else if (id == R.id.nav_setting) {
             if (obj.getRole().equals("nurse")) {
-                Intent it = new Intent(Miniinapp.this, Setting.class);
+                Intent it = new Intent(InAppActivity.this, Setting.class);
                 startActivity(it);
             } else {
                 Toast.makeText(getApplicationContext(), "ไม่อนุญาตให้เข้าได้", Toast.LENGTH_SHORT).show();
@@ -476,9 +472,9 @@ public class Miniinapp extends AppCompatActivity
         Notification notification =
                 new NotificationCompat.Builder(this) // this is context
                         .setTicker("QueueQ")
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle("DevAhoy News")
-                        .setContentText("สวัสดีครับ ยินดีต้อนรับเข้าสู่บทความ Android Notification :)")
+                        .setSmallIcon(R.drawable.ic_hospital_2)
+                        .setContentTitle("ถึงเวลาคิว B"+queueB+" แล้วค่ะ")
+                        .setContentText("ขอให้ท่านเดินทางมาที่โรงพยาบาลภายในเวลา 15 นาทีเพื่อทำการซักประวัติและคัดกรองผู้ป่วยเบื้องต้นด้วยค่ะ")
                         .setAutoCancel(false)
                         .setContentIntent(activity)
                         .build();

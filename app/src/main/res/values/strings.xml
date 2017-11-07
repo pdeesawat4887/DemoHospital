@@ -16,7 +16,9 @@
     <string name="login">เข้าสู่ระบบ</string>
     <string name="walkin">จองคิว</string>
     <string name="out_patient">จองคิวผู้ป่วยนอก</string>
+    <string name="in_patient_reserve">จองคิวผู้ป่วยใน</string>
     <string name="setting">ตั้งค่า</string>
     <string name="nurse">พยาบาล</string>
     <string name="in_patient">ผู้ป่วยใน</string>
+    <string name="process">กำลังโหลดข้อมูล...</string>
 </resources>

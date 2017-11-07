@@ -30,7 +30,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Miniinapp"
+            android:name=".InAppActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_miniinapp"
             android:screenOrientation="portrait"
@@ -38,7 +38,7 @@
 
         <!-- <service android:name=".GPSTracker" /> -->
         <activity
-            android:name=".Manage"
+            android:name=".CallQueue"
             android:configChanges="orientation"
             android:label="@string/title_activity_manage"
             android:screenOrientation="portrait"

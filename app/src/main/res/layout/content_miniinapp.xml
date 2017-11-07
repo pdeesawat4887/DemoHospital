@@ -6,91 +6,78 @@
     android:layout_height="match_parent"
     android:background="@drawable/grdnt"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.pacharapoldeesawat.demohospital.Miniinapp">
+    tools:context="com.example.pacharapoldeesawat.demohospital.InAppActivity">
 
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:paddingBottom="40dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="#4a5a71">
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <Button
-                    android:id="@+id/inappbtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="In-App"
-                    android:drawableRight="@drawable/ic_phone"
-                    android:textSize="22dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="#4a5a71">
-            </LinearLayout>
+            <Button
+                android:id="@+id/inappbtn"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/circle_inapp"
+                android:drawableTop="@drawable/ic_035_smartphone_2"
+                android:paddingTop="20dp"
+                android:text="@string/walkin"
+                android:textColor="#2364AA"
+                android:textSize="22sp"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp"
-        android:orientation="vertical"
-        android:gravity="top"
-        android:paddingTop="100dp">
-
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        android:padding="30dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_002_time_5"
+            android:alpha="0.85"/>
         <TextView
+            android:id="@+id/remainQueue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Queue"
-            android:textColor="#009a9a"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_gravity="bottom"
-            android:padding="16dp"
-            android:layout_marginBottom="50dp"
-            android:letterSpacing="0.2"
-            android:textSize="30dp"/>
+            android:paddingStart="15dp"
+            android:textColor="#2364AA"
+            android:textSize="18sp"
+            android:paddingBottom="12dp"
+            android:text="@string/process"/>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:gravity="bottom"
-        android:paddingTop="100dp">
-
+        android:paddingBottom="90dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_folder"
+            android:alpha="0.7"/>
         <TextView
+            android:id="@+id/youQ"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/remainQueue"
-            android:textColor="#009a9a"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_gravity="bottom"
-            android:padding="16dp"
-            android:layout_marginBottom="50dp"
-            android:letterSpacing="0.2"
-            android:textSize="20dp"/>
+            android:paddingStart="15dp"
+            android:textColor="#2364AA"
+            android:textSize="18sp"
+            android:paddingBottom="10dp"
+            android:text="@string/process"/>
     </LinearLayout>
 
 </RelativeLayout>

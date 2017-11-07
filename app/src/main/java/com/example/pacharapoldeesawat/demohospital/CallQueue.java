@@ -35,7 +35,7 @@ import com.google.gson.Gson;
 import java.util.Timer;
 
 
-public class Manage extends AppCompatActivity
+public class CallQueue extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private DatabaseReference root;
@@ -180,7 +180,7 @@ public class Manage extends AppCompatActivity
 
             public void onFinish() {
                 textTime.setText("หมดเวลา!");
-                t2v.setTextColor(Color.RED);
+                textTime.setTextColor(Color.RED);
             }
         }.start();
     }
@@ -255,24 +255,24 @@ public class Manage extends AppCompatActivity
 
         if (id == R.id.nav_walk) {
             if (obj.getRole().equals("nurse")){
-                Intent it = new Intent(Manage.this, WalkInActivity.class);
+                Intent it = new Intent(CallQueue.this, WalkInActivity.class);
                 startActivity(it);
             } else {
                 Toast.makeText(getApplicationContext(),"ไม่อนุญาตให้เข้าได้",Toast.LENGTH_SHORT).show();
             }
         } else if (id == R.id.nav_phone) {
-            Intent it = new Intent(Manage.this, Miniinapp.class);
+            Intent it = new Intent(CallQueue.this, InAppActivity.class);
             startActivity(it);
         } else if (id == R.id.nav_manage) {
             if (obj.getRole().equals("nurse")){
-                Intent it = new Intent(Manage.this, Manage.class);
+                Intent it = new Intent(CallQueue.this, CallQueue.class);
                 startActivity(it);
             } else {
                 Toast.makeText(getApplicationContext(),"ไม่อนุญาตให้เข้าได้",Toast.LENGTH_SHORT).show();
             }
         } else if (id == R.id.nav_setting) {
             if (obj.getRole().equals("nurse")){
-                Intent it = new Intent(Manage.this, Setting.class);
+                Intent it = new Intent(CallQueue.this, Setting.class);
                 startActivity(it);
             } else {
                 Toast.makeText(getApplicationContext(),"ไม่อนุญาตให้เข้าได้",Toast.LENGTH_SHORT).show();

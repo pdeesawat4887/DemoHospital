@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
 
             if (person.getCitizenId() != null) {
                 if (person.getRole().equals("user")) {
-                    Intent it = new Intent(LoginActivity.this, Miniinapp.class);
+                    Intent it = new Intent(LoginActivity.this, InAppActivity.class);
                     startActivity(it);
                 } else if (person.getRole().equals("nurse")) {
                     Intent it = new Intent(LoginActivity.this, WalkInActivity.class);
@@ -111,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Intent it = new Intent(LoginActivity.this, WalkInActivity.class);
                                     startActivity(it);
                                 } else {
-                                    Intent it = new Intent(LoginActivity.this, Miniinapp.class);
+                                    Intent it = new Intent(LoginActivity.this, InAppActivity.class);
                                     startActivity(it);
                                 }
                             } else {

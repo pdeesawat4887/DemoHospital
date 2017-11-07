@@ -135,11 +135,11 @@ public class Setting extends AppCompatActivity
                 Toast.makeText(getApplicationContext(),"ไม่อนุญาตให้เข้าได้",Toast.LENGTH_SHORT).show();
             }
         } else if (id == R.id.nav_phone) {
-            Intent it = new Intent(Setting.this, Miniinapp.class);
+            Intent it = new Intent(Setting.this, InAppActivity.class);
             startActivity(it);
         } else if (id == R.id.nav_manage) {
             if (obj.getRole().equals("nurse")){
-                Intent it = new Intent(Setting.this, Manage.class);
+                Intent it = new Intent(Setting.this, CallQueue.class);
                 startActivity(it);
             } else {
                 Toast.makeText(getApplicationContext(),"ไม่อนุญาตให้เข้าได้",Toast.LENGTH_SHORT).show();

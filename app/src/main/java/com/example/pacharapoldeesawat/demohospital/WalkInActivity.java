@@ -2,15 +2,8 @@ package com.example.pacharapoldeesawat.demohospital;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.design.internal.NavigationMenu;
-import android.support.v4.app.ActivityCompat;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -101,16 +94,20 @@ public class WalkInActivity extends AppCompatActivity
         View header=navigationView.getHeaderView(0);
 
         ImageView avatar = (ImageView) header.findViewById(R.id.avatar);
+        TextView role = (TextView)header.findViewById(R.id.userRole);
+
         if (obj.getRole().equals("nurse")){
             avatar.setImageResource(R.drawable.ic_021_nurse);
+            role.setText(R.string.nurse);
         } else {
             avatar.setImageResource(R.drawable.ic_009_sick);
+            role.setText(R.string.in_patient);
         }
 
-        TextView role = (TextView)header.findViewById(R.id.userRole);
+
         role.setText(obj.getRole().toUpperCase());
         TextView id = (TextView) header.findViewById(R.id.id);
-        id.setText("ID : "+obj.getCitizenId());
+        id.setText("เลขบัตรประชาชน : "+obj.getCitizenId());
 
     }
 
@@ -160,11 +157,11 @@ public class WalkInActivity extends AppCompatActivity
                 Toast.makeText(getApplicationContext(),"ไม่อนุญาตให้เข้าได้",Toast.LENGTH_SHORT).show();
             }
         } else if (id == R.id.nav_phone) {
-            Intent it = new Intent(WalkInActivity.this, Miniinapp.class);
+            Intent it = new Intent(WalkInActivity.this, InAppActivity.class);
             startActivity(it);
         } else if (id == R.id.nav_manage) {
             if (obj.getRole().equals("nurse")){
-            Intent it = new Intent(WalkInActivity.this, Manage.class);
+            Intent it = new Intent(WalkInActivity.this, CallQueue.class);
             startActivity(it);
             } else {
                 Toast.makeText(getApplicationContext(),"ไม่อนุญาตให้เข้าได้",Toast.LENGTH_SHORT).show();
