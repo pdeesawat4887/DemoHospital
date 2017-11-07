@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.Gravity;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -49,6 +50,8 @@ public class CallQueue extends AppCompatActivity
     private TextView t2v;
     private int index;
     private User obj;
+    TextView queueA;
+    TextView queueB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,19 +75,38 @@ public class CallQueue extends AppCompatActivity
         tv0.setGravity(Gravity.CENTER);
         tbrow0.addView(tv0);
         TextView tv1 = new TextView(this);
-        tv1.setText(" เวลาที่เหลือ ");
+        tv1.setText(" เวลาที่โดยประมาณ ");
         tv1.setTextColor(Color.WHITE);
         tv1.setGravity(Gravity.CENTER);
         tbrow0.addView(tv1);
         final TextView tv2 = new TextView(this);
-        tv2.setText(" มาแล้ว ");
+        tv2.setText(" สถานะ ");
         tv2.setTextColor(Color.WHITE);
         tv2.setGravity(Gravity.CENTER);
         tbrow0.addView(tv2);
         stk.addView(tbrow0);
 
+        queueA = (TextView) findViewById(R.id.remainQueueA);
+        queueB = (TextView) findViewById(R.id.remainQueueB);
 
-        refresh = findViewById(R.id.refresh);
+        DatabaseReference mainRoot = FirebaseDatabase.getInstance().getReference();
+        mainRoot.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long numAll = (long) dataSnapshot.child("useQueue").getChildrenCount();
+                long numB = (long) dataSnapshot.child("queueB_Oneday").getChildrenCount();
+                queueA.setText("เหลือ "+(numAll-numB)+ " คิว");
+                queueB.setText("เหลือ "+ numB + " คิว");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+//        refresh = findViewById(R.id.refresh);
         push = findViewById(R.id.push);
 
         mPerf = FirebaseDatabase.getInstance().getReference();
@@ -94,51 +116,7 @@ public class CallQueue extends AppCompatActivity
 
             @Override
             public void onClick(View view) {
-
-                root.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (!dataSnapshot.child("useQueue").exists()) {
-                            Toast.makeText(getApplicationContext(), "ในขณะนี้ไม่มีการจองคิวเข้ามา", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Query pushQuery = mPerf.child("useQueue").limitToFirst(1);
-
-
-                            pushQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                    for (DataSnapshot queueSnapshot : dataSnapshot.getChildren()) {
-
-                                        Queue qqq = queueSnapshot.getValue(Queue.class);
-                                        if (qqq.getType().equals("B")) {
-                                            init(qqq.getType() + qqq.getQueueNum(), 900000);
-                                            root.child("queueB_Oneday").child(qqq.getId()).removeValue();
-                                        } else {
-                                            init(qqq.getType() + qqq.getQueueNum(), 300000);
-                                        }
-
-                                        queueSnapshot.getRef().removeValue();
-
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-
+                pushQueue();
             }
         });
 
@@ -181,6 +159,7 @@ public class CallQueue extends AppCompatActivity
             public void onFinish() {
                 textTime.setText("หมดเวลา!");
                 textTime.setTextColor(Color.RED);
+                btnOk.performClick();
             }
         }.start();
     }
@@ -189,7 +168,7 @@ public class CallQueue extends AppCompatActivity
         TableRow tbrow = new TableRow(this);
         tbrow.setPadding(0, 0, 0, 0);
         btnOk = new Button(this);
-        btnOk.setText("-Ok-");
+        btnOk.setText("มาแล้ว");
         t1v = new TextView(this);
         t1v.setText(text1);
         t1v.setTextColor(Color.WHITE);
@@ -209,6 +188,7 @@ public class CallQueue extends AppCompatActivity
                 TableRow row = (TableRow) view.getParent();
                 index = stk.indexOfChild(row);
                 stk.removeView(stk.getChildAt(index));
+                pushQueue();
             }
         });
 
@@ -287,6 +267,52 @@ public class CallQueue extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void pushQueue(){
+        root.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.child("useQueue").exists()) {
+                    Toast.makeText(getApplicationContext(), "ในขณะนี้ไม่มีการจองคิวเข้ามา", Toast.LENGTH_SHORT).show();
+                } else {
+                    Query pushQuery = mPerf.child("useQueue").limitToFirst(1);
+
+
+                    pushQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            for (DataSnapshot queueSnapshot : dataSnapshot.getChildren()) {
+
+                                Queue qqq = queueSnapshot.getValue(Queue.class);
+                                if (qqq.getType().equals("B")) {
+                                    init(qqq.getType() + qqq.getQueueNum(), 900000);
+                                    root.child("queueB_Oneday").child(qqq.getId()).removeValue();
+                                } else {
+                                    init(qqq.getType() + qqq.getQueueNum(), 300000);
+                                }
+
+                                queueSnapshot.getRef().removeValue();
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 

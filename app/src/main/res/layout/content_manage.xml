@@ -31,7 +31,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:paddingTop="50dp">
+                    android:paddingTop="50dp"
+                    android:textAlignment="center"
+                    android:padding="10dp">
                 </TableLayout>
             </RelativeLayout>
         </HorizontalScrollView>
@@ -48,21 +50,51 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingBottom="40dp">
+            android:paddingBottom="50dp">
 
             <Button
-                android:id="@+id/inappbtn"
+                android:id="@+id/push"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:background="@drawable/circle_manage"
-                android:drawableTop="@drawable/ic_035_smartphone_2"
+                android:drawableTop="@drawable/ic_012_megaphone_3"
                 android:paddingTop="20dp"
-                android:text="@string/walkin"
+                android:text="เรียกคิว"
                 android:textColor="#2364AA"
                 android:textSize="22sp"/>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="bottom">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_011_walk"
+                android:alpha="0.7"/>
+            <TextView
+                android:id="@+id/remainQueueA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:textColor="#2364AA"
+                android:textSize="18sp"
+                android:paddingEnd="10dp"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_030_technology_1"
+                android:alpha="0.7" />
+            <TextView
+                android:id="@+id/remainQueueB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:textColor="#2364AA"
+                android:textSize="18sp"/>
+        </LinearLayout>
     </LinearLayout>
-
-
 
 </RelativeLayout>
