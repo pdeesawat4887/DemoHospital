@@ -34,7 +34,9 @@ public class Setting extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("การตั้งค่า");
         setSupportActionBar(toolbar);
+
 
         SharedPreferences mPrefs2 = getSharedPreferences("label", 0);
         SharedPreferences.Editor mPerfsEdit = mPrefs2.edit();
@@ -47,15 +49,15 @@ public class Setting extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(Setting.this)
-                        .setTitle("Are you sure ?")
-                        .setMessage("Make sure again that you want to reset all queue")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        .setTitle("คุณแน่ใจที่จะลบข้อมูลในระบบการจองคิวใช่ไหม")
+                        .setMessage("หากทำการลบข้อมูลแล้วจะไม่สามารถกู้คืนการจองคิวได้ โปรดระมัดระวังในการลบข้อมูล คุณแน่ใจที่จะลบข้อมูลในระบบการจองคิวใช่ไหม")
+                        .setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 resetDatabase();
                             }
                         })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        .setNegativeButton("ยกเลิก", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 Toast.makeText(Setting.this, "Cancel",Toast.LENGTH_LONG).show();
@@ -175,6 +177,6 @@ public class Setting extends AppCompatActivity
         root.child("demoQueue").removeValue();
         root.child("useQueue").removeValue();
         root.child("queueB_Oneday").removeValue();
-        Toast.makeText(Setting.this, "You already clear queue",Toast.LENGTH_LONG).show();
+        Toast.makeText(Setting.this, "คืนค่าเริ่มต้นสำเร็จ",Toast.LENGTH_LONG).show();
     }
 }

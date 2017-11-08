@@ -11,8 +11,9 @@
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true">
+        android:layout_height="300dp"
+        android:layout_alignParentLeft="true"
+        android:fillViewport="true">
 
         <HorizontalScrollView
             android:id="@+id/hscrll1"
@@ -31,9 +32,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:paddingTop="50dp"
-                    android:textAlignment="center"
-                    android:padding="10dp">
+                    android:paddingTop="30dp"
+                    android:textAlignment="center">
                 </TableLayout>
             </RelativeLayout>
         </HorizontalScrollView>

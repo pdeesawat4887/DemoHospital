@@ -8,79 +8,43 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.pacharapoldeesawat.demohospital.Setting">
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:paddingBottom="50dp"
+            android:paddingLeft="25dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_001_trash_2"
+                />
 
-            <LinearLayout
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/resetAll"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="50dp"
-                android:paddingRight="50dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Reset"
-                    android:textColor="#009a9a"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:layout_gravity="bottom"
-                    android:paddingBottom="20dp"
-                    android:letterSpacing="0.2"
-                    android:textSize="30dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="#4a5a71">
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp">
-                <Button
-                    android:id="@+id/resetAll"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Reset All Queue"
-                    android:drawableLeft="@drawable/ic_walk"
-                    android:textSize="20sp"/>
-            </LinearLayout>
+                android:padding="15dp"
+                android:text="@string/reset_text"
+                android:background="@drawable/circle"/>
         </LinearLayout>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp"
-        android:orientation="vertical"
-        android:gravity="bottom"
-        android:paddingTop="100dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/queueA_count"
-            android:textColor="#009a9a"
-            android:gravity="center"
-            android:layout_gravity="bottom"
-            android:padding="16dp"
-            android:layout_marginBottom="50dp"
-            android:letterSpacing="0.2"
-            android:textSize="16dp"/>
-    </LinearLayout>
+
+
 
 
 </RelativeLayout>

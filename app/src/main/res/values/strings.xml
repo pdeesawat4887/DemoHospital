@@ -21,4 +21,6 @@
     <string name="nurse">พยาบาล</string>
     <string name="in_patient">ผู้ป่วยใน</string>
     <string name="process">กำลังโหลดข้อมูล...</string>
+    <string name="reset">รีเซ็ตข้อมูลเป็นค่าเริ่มต้น</string>
+    <string name="reset_text">คืนค่าเริ่มต้นฐานข้อมูล</string>
 </resources>

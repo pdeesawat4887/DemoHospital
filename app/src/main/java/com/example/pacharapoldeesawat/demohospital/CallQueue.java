@@ -16,8 +16,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -59,6 +62,8 @@ public class CallQueue extends AppCompatActivity
         setContentView(R.layout.activity_manage);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitle("เรียกคิวผู้ป่วย");
+        setSupportActionBar(toolbar);
 
         SharedPreferences mPrefs2 = getSharedPreferences("label", 0);
         SharedPreferences.Editor mPerfsEdit = mPrefs2.edit();
@@ -68,21 +73,24 @@ public class CallQueue extends AppCompatActivity
 
         stk = findViewById(R.id.table_main);
         TableRow tbrow0 = new TableRow(this);
-        tbrow0.setPadding(10, 0, 10, 0);
+        tbrow0.setPadding(0, 5, 10, 10);
         TextView tv0 = new TextView(this);
         tv0.setText(" คิว ");
-        tv0.setTextColor(Color.WHITE);
+        tv0.setTextColor(getResources().getColor(R.color.tableTitle));
         tv0.setGravity(Gravity.CENTER);
+        tv0.setTextSize(18);
         tbrow0.addView(tv0);
         TextView tv1 = new TextView(this);
-        tv1.setText(" เวลาที่โดยประมาณ ");
-        tv1.setTextColor(Color.WHITE);
+        tv1.setText(" เวลาโดยประมาณ ");
+        tv1.setTextColor(getResources().getColor(R.color.tableTitle));
         tv1.setGravity(Gravity.CENTER);
+        tv1.setTextSize(18);
         tbrow0.addView(tv1);
         final TextView tv2 = new TextView(this);
         tv2.setText(" สถานะ ");
-        tv2.setTextColor(Color.WHITE);
+        tv2.setTextColor(getResources().getColor(R.color.tableTitle));
         tv2.setGravity(Gravity.CENTER);
+        tv2.setTextSize(18);
         tbrow0.addView(tv2);
         stk.addView(tbrow0);
 
@@ -159,24 +167,26 @@ public class CallQueue extends AppCompatActivity
             public void onFinish() {
                 textTime.setText("หมดเวลา!");
                 textTime.setTextColor(Color.RED);
-                btnOk.performClick();
+
             }
         }.start();
     }
 
     public void init(String text1, int type) {
         TableRow tbrow = new TableRow(this);
-        tbrow.setPadding(0, 0, 0, 0);
+        tbrow.setPadding(0, 5, 10, 10);
         btnOk = new Button(this);
         btnOk.setText("มาแล้ว");
         t1v = new TextView(this);
         t1v.setText(text1);
-        t1v.setTextColor(Color.WHITE);
+        t1v.setTextColor(Color.rgb(35, 100, 170));
         t1v.setGravity(Gravity.CENTER);
+        t1v.setTextSize(18);
         t2v = new TextView(this);
         countdown(t2v, type, 1000);
-        t2v.setTextColor(Color.WHITE);
+        t2v.setTextColor(Color.rgb(35, 100, 170));
         t2v.setGravity(Gravity.CENTER);
+        t2v.setTextSize(18);
         tbrow.addView(t1v);
         tbrow.addView(t2v);
         tbrow.addView(btnOk);
@@ -188,7 +198,6 @@ public class CallQueue extends AppCompatActivity
                 TableRow row = (TableRow) view.getParent();
                 index = stk.indexOfChild(row);
                 stk.removeView(stk.getChildAt(index));
-                pushQueue();
             }
         });
 

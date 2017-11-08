@@ -63,7 +63,9 @@
             android:name=".Setting"
             android:label="@string/title_activity_setting"
             android:theme="@style/AppTheme" />
-        <activity android:name=".ReceiverActivity"></activity>
+        <activity
+            android:name=".ReceiverActivity">
+        </activity>
     </application>
 
 </manifest>

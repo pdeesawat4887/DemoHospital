@@ -166,8 +166,9 @@ public class InAppActivity extends AppCompatActivity
                                 if (dataSnapshot.child("queueB_Oneday").child(obj.getCitizenId()).exists()) {
                                     Toast.makeText(getApplicationContext(), "คุณทำการจองคิวไปแล้ว", Toast.LENGTH_LONG).show();
                                 } else {
-                                    if (distanceInMeters > 300000) {
+                                    if (distanceInMeters > 15000) {
                                         Toast.makeText(getApplicationContext(), "คุณอยู่ห่างจากโรงพยาบาลเกิน 1.5 กิโลเมตร", Toast.LENGTH_LONG).show();
+                                        Log.d("TAG_LOCATION", String.valueOf(distanceInMeters));
                                     } else {
                                         InsertQueue newQueue = new InsertQueue();
                                         newQueue.updateQueue("B", obj.getCitizenId());
@@ -336,7 +337,7 @@ public class InAppActivity extends AppCompatActivity
         String msg = "Updated Location: " +
                 Double.toString(location.getLatitude()) + "," +
                 Double.toString(location.getLongitude());
-//        Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + location.getLatitude() + "\nLong: " + location.getLongitude(), Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + location.getLatitude() + "\nLong: " + location.getLongitude(), Toast.LENGTH_SHORT).show();
         //Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         loc2Latitude = location.getLatitude();
         loc2Longitude = location.getLongitude();
@@ -422,7 +423,6 @@ public class InAppActivity extends AppCompatActivity
 
     public void checkMe() {
         DatabaseReference useQ = FirebaseDatabase.getInstance().getReference();
-
         useQ.child("useQueue").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {

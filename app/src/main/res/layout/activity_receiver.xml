@@ -1,43 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:background="@drawable/grdnt">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="50dp">
 
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/circle"
-            android:drawableTop="@android:drawable/ic_dialog_email"
-            android:paddingTop="20dp"
-            android:text="Contact"
-            android:textColor="#fff" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ขอให้ท่านเดินทางมาที่โรงพยาบาลภายในเวลา 15 นาที เพื่อทำการซักประวัติ และคัดกรองผู้ป่วยเบื้องต้นด้วยค่ะ"
+            android:textSize="18sp"
+            android:textAlignment="viewStart"/>
 
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/circle"
-            android:drawableTop="@android:drawable/ic_dialog_map"
-            android:paddingTop="20dp"
-            android:text="Map"
-            android:textColor="#fff" />
-
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/circle"
-            android:drawableTop="@android:drawable/ic_dialog_info"
-            android:paddingTop="20dp"
-            android:text="Info"
-            android:textColor="#fff" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="หากมาไม่ทันเวลาจะขอสงวนสิทธิในการข้ามคิวของท่านและ ไม่มีการเรียกซ้ำ"/>
     </LinearLayout>
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingBottom="160dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:id="@+id/noti_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="หากมาไม่ทัน"
+            android:textSize="18sp"
+            android:textAlignment="viewStart"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="20dp"
+        android:paddingEnd="50dp"
+        android:paddingBottom="5dp"
+        android:orientation="vertical"
+        android:gravity="bottom"
+        android:paddingTop="100dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_019_promotion"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="180dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="30dp"
+        android:orientation="vertical"
+        android:gravity="bottom"
+        android:paddingTop="100dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="หากมาไม่ทันเวลาจะขอสงวนสิทธิในการข้ามคิวของท่าน เนื่องจากมีผู้ป่วยใช้บริการเป็นจำนวนมาก"
+            android:textSize="12sp"
+            android:textAlignment="viewStart"/>
+    </LinearLayout>
+
+
+</RelativeLayout>
