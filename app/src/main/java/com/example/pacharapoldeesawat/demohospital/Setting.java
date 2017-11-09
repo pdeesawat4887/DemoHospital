@@ -60,7 +60,7 @@ public class Setting extends AppCompatActivity
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         mainRoot.child("distance").setValue(Float.parseFloat(String.valueOf(setDistance.getText()))*1000);
-                        Toast.makeText(getApplicationContext(), "Successful",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "เปลี่ยนแปลงระยะทางเรียบร้อย",Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

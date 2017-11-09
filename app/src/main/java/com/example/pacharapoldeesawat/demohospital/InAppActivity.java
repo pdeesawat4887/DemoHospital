@@ -14,6 +14,7 @@ import android.location.LocationManager;
 import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.preference.EditTextPreference;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -77,6 +78,7 @@ public class InAppActivity extends AppCompatActivity
     private long FASTEST_INTERVAL = 2000;       // 2 sec
     private LocationManager locationManager;
     private long queueB;
+    SharedPreferences.Editor prefsEditor2;
 
     private boolean doubleBackToExitPressedOnce = true;
 
@@ -96,6 +98,8 @@ public class InAppActivity extends AppCompatActivity
         Gson gson3 = new Gson();
         String json3 = mPrefs2.getString("MyObjectUser", "");
         obj = gson3.fromJson(json3, User.class);
+        prefsEditor2 = mPrefs2.edit();
+
 
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -123,6 +127,7 @@ public class InAppActivity extends AppCompatActivity
 
                 if (dataSnapshot.child("queueB_Oneday").child(obj.getCitizenId()).getValue() != null){
                     queueB = (long) dataSnapshot.child("queueB_Oneday").child(obj.getCitizenId()).getValue();
+                    prefsEditor2.putString("queueB", "B"+queueB).commit();
                     youQ.setText("คิวของคุณคือ B"+ queueB);
                 }else {
                     youQ.setText("คุณยังไม่ได้ทำการจองคิว");

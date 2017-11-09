@@ -13,15 +13,15 @@ public class CheckTimeBox {
     public static int checkTimeBox(int hour, int min){
 
         switch (hour) {
-            case 16: timebox = (min < 30) ? 1 : 2;
+            case 22: timebox = (min < 30) ? 1 : 2;
                 break;
-            case 17: timebox = (min < 30) ? 3 : 4;
+            case 23: timebox = (min < 30) ? 3 : 4;
                 break;
-            case 18: timebox = (min < 30) ? 5 : 6;
+            case 0: timebox = (min < 30) ? 5 : 6;
                 break;
-            case 19: timebox = (min < 30) ? 7 : 8;
+            case 1: timebox = (min < 30) ? 7 : 8;
                 break;
-            case 20: timebox = (min < 30) ? 9 : 10;
+            case 2: timebox = (min < 30) ? 9 : 10;
                 break;
         }
         return timebox;

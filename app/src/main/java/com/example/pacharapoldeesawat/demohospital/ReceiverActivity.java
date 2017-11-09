@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -56,6 +57,8 @@ public class ReceiverActivity extends AppCompatActivity implements
     private double loc2Latitude;
     private double loc2Longitude;
     private float distanceInMeters;
+    String queueB;
+    TextView queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,9 @@ public class ReceiverActivity extends AppCompatActivity implements
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        SharedPreferences mPrefs2 = getSharedPreferences("label", 0);
+        queueB = mPrefs2.getString("queueB", queueB);
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -74,8 +80,11 @@ public class ReceiverActivity extends AppCompatActivity implements
         mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         checkLocation();
 
+        queue = (TextView) findViewById(R.id.noti_queueB);
         textView = (TextView) findViewById(R.id.noti_distance);
         timeTextView = (TextView) findViewById(R.id.noti_time_to_travel);
+
+        queue.setText("คิวของคุณคือ "+queueB);
 
         loc1 = new Location("");
         loc1.setLatitude(hospitalLat);
