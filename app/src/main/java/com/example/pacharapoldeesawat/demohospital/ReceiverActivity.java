@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +52,7 @@ public class ReceiverActivity extends AppCompatActivity implements
     Location loc1;
     Timer timer;
     TextView textView;
+    TextView timeTextView;
     private double loc2Latitude;
     private double loc2Longitude;
     private float distanceInMeters;
@@ -73,6 +75,8 @@ public class ReceiverActivity extends AppCompatActivity implements
         checkLocation();
 
         textView = (TextView) findViewById(R.id.noti_distance);
+        timeTextView = (TextView) findViewById(R.id.noti_time_to_travel);
+
         loc1 = new Location("");
         loc1.setLatitude(hospitalLat);
         loc1.setLongitude(hospitalLong);
@@ -87,22 +91,24 @@ public class ReceiverActivity extends AppCompatActivity implements
                 loc2.setLatitude(loc2Latitude);
                 loc2.setLongitude(loc2Longitude);
                 distanceInMeters = loc1.distanceTo(loc2);
+                final int minTime = (int) (17*distanceInMeters/1600);
+                final int maxTime = (int) (20*distanceInMeters/1600);
                 Log.d("TAG_VECTOR", String.valueOf(distanceInMeters));
+                Log.d("TAG_VECTOR", String.valueOf(maxTime));
+                Log.d("TAG_VECTOR", String.valueOf(minTime));
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        textView.setText("คุณห่างจากโรงพยาบาล "+distanceInMeters+" เมตร");
-
+                        if (String.valueOf(distanceInMeters).indexOf('E') == -1){
+                            textView.setText("คุณห่างจากโรงพยาบาล "+distanceInMeters+" เมตร");
+                            timeTextView.setText("ใช้เวลาในการเดินประมาณ "+minTime+" - "+maxTime+" นาที");
+                        }
                     }
                 });
 
             }
         };
         timer.scheduleAtFixedRate(task, 0, INTERVAL_MSEC);
-
-
-
-
 
 
     }

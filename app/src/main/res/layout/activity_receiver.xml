@@ -27,7 +27,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:paddingBottom="160dp"
         android:paddingLeft="30dp"
         android:paddingRight="20dp">
@@ -36,7 +36,23 @@
             android:id="@+id/noti_distance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="หากมาไม่ทัน"
+            android:text="@string/process"
+            android:textSize="18sp"
+            android:textAlignment="viewStart"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:paddingBottom="80dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:id="@+id/noti_time_to_travel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/process"
             android:textSize="18sp"
             android:textAlignment="viewStart"/>
     </LinearLayout>

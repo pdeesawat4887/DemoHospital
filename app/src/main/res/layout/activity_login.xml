@@ -36,7 +36,6 @@
                     android:background="#00000000"
                     android:hint="@string/citizenId"
                     android:inputType="number"
-                    android:letterSpacing="0.1"
                     android:textColor="#6D696A"
                     android:textColorHint="#A2A7A5"
                     android:textSize="18sp"

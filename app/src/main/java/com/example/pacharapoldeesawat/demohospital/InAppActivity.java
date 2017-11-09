@@ -155,6 +155,8 @@ public class InAppActivity extends AppCompatActivity
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         try {
+                            Long farDistance = (long) dataSnapshot.child("distance").getValue();
+                            float farDisInt = farDistance.floatValue();
                             GetTime time = new GetTime();
                             time.whatTimeIsIt();
                             int checkTimeBox = new CheckTimeBox().checkTimeBox(Integer.parseInt(time.getHour()), Integer.parseInt(time.getMin()));
@@ -166,8 +168,9 @@ public class InAppActivity extends AppCompatActivity
                                 if (dataSnapshot.child("queueB_Oneday").child(obj.getCitizenId()).exists()) {
                                     Toast.makeText(getApplicationContext(), "คุณทำการจองคิวไปแล้ว", Toast.LENGTH_LONG).show();
                                 } else {
-                                    if (distanceInMeters > 15000) {
-                                        Toast.makeText(getApplicationContext(), "คุณอยู่ห่างจากโรงพยาบาลเกิน 1.5 กิโลเมตร", Toast.LENGTH_LONG).show();
+                                    if (distanceInMeters > farDistance) {
+
+                                        Toast.makeText(getApplicationContext(), "คุณอยู่ห่างจากโรงพยาบาลเกิน "+ (farDisInt/1000) +" กิโลเมตร", Toast.LENGTH_LONG).show();
                                         Log.d("TAG_LOCATION", String.valueOf(distanceInMeters));
                                     } else {
                                         InsertQueue newQueue = new InsertQueue();

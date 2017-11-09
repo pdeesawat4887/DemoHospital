@@ -15,13 +15,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pacharapoldeesawat.demohospital.Model.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 public class Setting extends AppCompatActivity
@@ -43,6 +47,29 @@ public class Setting extends AppCompatActivity
         Gson gson3 = new Gson();
         String json3 = mPrefs2.getString("MyObjectUser", "");
         obj = gson3.fromJson(json3, User.class);
+
+        Button updateDistance = findViewById(R.id.resetDistanceBtn);
+        final EditText setDistance = findViewById(R.id.setFarDistance);
+
+
+        updateDistance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final DatabaseReference mainRoot = FirebaseDatabase.getInstance().getReference();
+                mainRoot.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        mainRoot.child("distance").setValue(Float.parseFloat(String.valueOf(setDistance.getText()))*1000);
+                        Toast.makeText(getApplicationContext(), "Successful",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
 
         Button reset = findViewById(R.id.resetAll);
         reset.setOnClickListener(new View.OnClickListener() {
@@ -177,6 +204,7 @@ public class Setting extends AppCompatActivity
         root.child("demoQueue").removeValue();
         root.child("useQueue").removeValue();
         root.child("queueB_Oneday").removeValue();
+        root.child("distance").setValue(1500);
         Toast.makeText(Setting.this, "คืนค่าเริ่มต้นสำเร็จ",Toast.LENGTH_LONG).show();
     }
 }
