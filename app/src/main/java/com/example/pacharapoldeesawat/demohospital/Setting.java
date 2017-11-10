@@ -87,7 +87,7 @@ public class Setting extends AppCompatActivity
                         .setNegativeButton("ยกเลิก", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Toast.makeText(Setting.this, "Cancel",Toast.LENGTH_LONG).show();
+                                Toast.makeText(Setting.this, "ยกเลิก",Toast.LENGTH_LONG).show();
                             }
                         });
                 builder.show();
@@ -181,8 +181,9 @@ public class Setting extends AppCompatActivity
                 Toast.makeText(getApplicationContext(),"ไม่อนุญาตให้เข้าได้",Toast.LENGTH_SHORT).show();
             }
 
-        } else if (id == R.id.nav_share) {
-
+        } else if (id == R.id.nav_logout) {
+            Intent it = new Intent(Setting.this, LogoutActivity.class);
+            startActivity(it);
         } else if (id == R.id.nav_send) {
 
         }

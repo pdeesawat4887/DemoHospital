@@ -44,17 +44,25 @@ public class LoginActivity extends AppCompatActivity {
                 .askagain(true)
                 .ask();
 
-
         boolean isFirstTime = MyPreferences.isFirst(LoginActivity.this);
-        Log.i("First time", String.valueOf(isFirstTime));
 
-        if (!isFirstTime) {
+        SharedPreferences restartCheck = getSharedPreferences("label", 0);
+        boolean checkRestart = restartCheck.getBoolean("restart", false);
+
+        if (checkRestart){
+            isFirstTime = true;
+        }
+
+        Log.i("First time", String.valueOf(isFirstTime));
+        if (!isFirstTime){
+
             mPrefs = getSharedPreferences("label", 0);
             Gson gson = new Gson();
             String json = mPrefs.getString("MyObjectUser", "");
             person = gson.fromJson(json, User.class);
 
             if (person.getCitizenId() != null) {
+                restartCheck.edit().putBoolean("restart", false).commit();
                 if (person.getRole().equals("user")) {
                     Intent it = new Intent(LoginActivity.this, InAppActivity.class);
                     startActivity(it);
@@ -65,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         } else {
 
+            restartCheck.edit().putBoolean("restart", false).commit();
             lin = findViewById(R.id.lin);
             usrusr = findViewById(R.id.usrusr);
 //            sup = findViewById(R.id.sup);

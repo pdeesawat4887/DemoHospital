@@ -25,4 +25,12 @@
                 android:title="@string/setting" />
         </menu>
     </item>
+    <item android:title="ออกจากระบบ">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_walk"
+                android:title="@string/out_patient" />
+        </menu>
+    </item>
 </menu>

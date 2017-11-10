@@ -288,8 +288,9 @@ public class InAppActivity extends AppCompatActivity
                 Toast.makeText(getApplicationContext(), "ไม่อนุญาตให้เข้าได้", Toast.LENGTH_SHORT).show();
             }
 
-        } else if (id == R.id.nav_share) {
-
+        } else if (id == R.id.nav_logout) {
+            Intent it = new Intent(InAppActivity.this, LogoutActivity.class);
+            startActivity(it);
         } else if (id == R.id.nav_send) {
 
         }
