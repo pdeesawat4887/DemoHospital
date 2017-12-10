@@ -24,8 +24,8 @@ public class LogoutActivity extends AppCompatActivity {
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(LogoutActivity.this)
-                .setTitle("คุณแน่ใจที่จะลงชื่อออกจากระบบใช่ไหม")
-                .setMessage("ุณแน่ใจที่จะลงชื่อออกจากระบบใช่ไหม")
+                .setTitle("ออกจากระบบ")
+                .setMessage("คคุณยืนยันที่จะออกจากระบบหรือไม่")
                 .setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -48,7 +48,7 @@ public class LogoutActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Toast.makeText(LogoutActivity.this, "ยกเลิก",Toast.LENGTH_LONG).show();
-                        Intent it = new Intent(LogoutActivity.this, LoginActivity.class);
+                        Intent it = new Intent(LogoutActivity.this, InAppActivity.class);
                         startActivity(it);
                     }
                 });

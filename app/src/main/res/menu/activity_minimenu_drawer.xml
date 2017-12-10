@@ -6,7 +6,7 @@
             <item
                 android:id="@+id/nav_phone"
                 android:icon="@drawable/ic_030_technology_1"
-                android:title="จองคิวผ่านแอพิเคชั่น" />
+                android:title="จองคิวผ่านแอปพลิเคชัน" />
         </menu>
     </item>
     <item android:title="@string/nurse">
@@ -25,12 +25,12 @@
                 android:title="@string/setting" />
         </menu>
     </item>
-    <item android:title="ออกจากระบบ">
+    <item android:title="@string/logout">
         <menu>
             <item
                 android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_walk"
-                android:title="@string/out_patient" />
+                android:icon="@drawable/ic_004_exit"
+                android:title="@string/logout" />
         </menu>
     </item>
 </menu>

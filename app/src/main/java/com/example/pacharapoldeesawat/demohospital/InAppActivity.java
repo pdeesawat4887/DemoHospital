@@ -87,7 +87,8 @@ public class InAppActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_miniinapp);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.in_patient_reserve);
+        toolbar.setTitle("จองคิวผ่านแอปพลิเคชัน");
+        toolbar.setTitleTextColor(getResources().getColor(R.color.titleBar));
 //        toolbar.setLogo(R.drawable.ic_phone);
         setSupportActionBar(toolbar);
 
@@ -208,16 +209,17 @@ public class InAppActivity extends AppCompatActivity
         View header=navigationView.getHeaderView(0);
 
         ImageView avatar = (ImageView) header.findViewById(R.id.avatar);
+        TextView role = (TextView)header.findViewById(R.id.userRole);
+        TextView id = (TextView) header.findViewById(R.id.id);
+
         if (obj.getRole().equals("nurse")){
             avatar.setImageResource(R.drawable.ic_021_nurse);
+            role.setText(R.string.nurse);
         } else {
             avatar.setImageResource(R.drawable.ic_009_sick);
+            role.setText(R.string.in_patient);
         }
-
-        TextView role = (TextView)header.findViewById(R.id.userRole);
-        role.setText(obj.getRole().toUpperCase());
-        TextView id = (TextView) header.findViewById(R.id.id);
-        id.setText("ID : "+obj.getCitizenId());
+        id.setText("เลขประจำตัว: "+obj.getCitizenId());
     }
 
     @Override
@@ -250,9 +252,6 @@ public class InAppActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -268,7 +267,7 @@ public class InAppActivity extends AppCompatActivity
                 Intent it = new Intent(InAppActivity.this, WalkInActivity.class);
                 startActivity(it);
             } else {
-                Toast.makeText(getApplicationContext(), "ไม่อนุญาตให้เข้าได้", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "คุณต้องมีสิทธิ์เข้าถึง", Toast.LENGTH_SHORT).show();
             }
         } else if (id == R.id.nav_phone_inapp) {
             Intent it = new Intent(InAppActivity.this, InAppActivity.class);
@@ -278,14 +277,14 @@ public class InAppActivity extends AppCompatActivity
                 Intent it = new Intent(InAppActivity.this, CallQueue.class);
                 startActivity(it);
             } else {
-                Toast.makeText(getApplicationContext(), "ไม่อนุญาตให้เข้าได้", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "คุณต้องมีสิทธิ์เข้าถึง", Toast.LENGTH_SHORT).show();
             }
         } else if (id == R.id.nav_setting) {
             if (obj.getRole().equals("nurse")) {
                 Intent it = new Intent(InAppActivity.this, Setting.class);
                 startActivity(it);
             } else {
-                Toast.makeText(getApplicationContext(), "ไม่อนุญาตให้เข้าได้", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "คุณต้องมีสิทธิ์เข้าถึง", Toast.LENGTH_SHORT).show();
             }
 
         } else if (id == R.id.nav_logout) {

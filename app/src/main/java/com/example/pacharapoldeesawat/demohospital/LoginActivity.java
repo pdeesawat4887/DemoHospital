@@ -35,6 +35,13 @@ public class LoginActivity extends AppCompatActivity {
     private User person;
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MyPreferences.setRe(LoginActivity.this);
+    }
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -55,7 +62,6 @@ public class LoginActivity extends AppCompatActivity {
 
         Log.i("First time", String.valueOf(isFirstTime));
         if (!isFirstTime){
-
             mPrefs = getSharedPreferences("label", 0);
             Gson gson = new Gson();
             String json = mPrefs.getString("MyObjectUser", "");
@@ -76,11 +82,9 @@ public class LoginActivity extends AppCompatActivity {
             restartCheck.edit().putBoolean("restart", false).commit();
             lin = findViewById(R.id.lin);
             usrusr = findViewById(R.id.usrusr);
-//            sup = findViewById(R.id.sup);
             Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/LatoLight.ttf");
             Typeface custom_font1 = Typeface.createFromAsset(getAssets(), "fonts/LatoRegular.ttf");
             lin.setTypeface(custom_font1);
-//            sup.setTypeface(custom_font);
             usrusr.setTypeface(custom_font);
 
             lin.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +94,9 @@ public class LoginActivity extends AppCompatActivity {
                     FirebaseMessaging.getInstance().subscribeToTopic("demoFCM");
 
                     string2 = usrusr.getText().toString();
+                    if (string2 == null){
+                        Toast.makeText(LoginActivity.this, "กรุณาใส่เลขประจำจัวประชาชน", Toast.LENGTH_SHORT).show();
+                    }
                     final User person = new User();
 
                     final DatabaseReference root = FirebaseDatabase.getInstance().getReference();
@@ -103,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot snapshot) {
                             if (snapshot.child(string2).exists()) {
-                                Toast.makeText(LoginActivity.this, "Citizen " + string2 + " logged in.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, string2 + " ลงชื่อเข้าใช้งาน", Toast.LENGTH_SHORT).show();
                                 //Log.i("First Store", mPrefs.getString("citizenId", null));
                                 String xxx = snapshot.child(string2).getValue(String.class);
                                 person.setCitizenId(string2);
@@ -124,7 +131,7 @@ public class LoginActivity extends AppCompatActivity {
                                     startActivity(it);
                                 }
                             } else {
-                                Toast.makeText(LoginActivity.this, "Citizen Invalid", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "ไม่มีเลขบัตรประชาชนในระบบ", Toast.LENGTH_SHORT).show();
                             }
                         }
 

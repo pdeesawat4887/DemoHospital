@@ -39,6 +39,7 @@ public class Setting extends AppCompatActivity
         setContentView(R.layout.activity_setting);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("การตั้งค่า");
+        toolbar.setTitleTextColor(getResources().getColor(R.color.titleBar));
         setSupportActionBar(toolbar);
 
 
@@ -60,7 +61,7 @@ public class Setting extends AppCompatActivity
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         mainRoot.child("distance").setValue(Float.parseFloat(String.valueOf(setDistance.getText()))*1000);
-                        Toast.makeText(getApplicationContext(), "เปลี่ยนแปลงระยะทางเรียบร้อย",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "เปลี่ยนแปลงระยะห่างเรียบร้อย",Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -76,9 +77,9 @@ public class Setting extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(Setting.this)
-                        .setTitle("คุณแน่ใจที่จะลบข้อมูลในระบบการจองคิวใช่ไหม")
-                        .setMessage("หากทำการลบข้อมูลแล้วจะไม่สามารถกู้คืนการจองคิวได้ โปรดระมัดระวังในการลบข้อมูล คุณแน่ใจที่จะลบข้อมูลในระบบการจองคิวใช่ไหม")
-                        .setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+                        .setTitle("ลบข้อมูลการจองคิว")
+                        .setMessage("หากทำการลบข้อมูลแล้วจะไม่สามารถกู้คืนการจองคิวได้ โปรดระมัดระวังในการลบข้อมูล ยินยันที่จะลบข้อมูลในระบบ")
+                        .setPositiveButton("ยืนยัน", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 resetDatabase();
@@ -106,16 +107,12 @@ public class Setting extends AppCompatActivity
         View header=navigationView.getHeaderView(0);
 
         ImageView avatar = (ImageView) header.findViewById(R.id.avatar);
-        if (obj.getRole().equals("nurse")){
-            avatar.setImageResource(R.drawable.ic_021_nurse);
-        } else {
-            avatar.setImageResource(R.drawable.ic_009_sick);
-        }
-
         TextView role = (TextView)header.findViewById(R.id.userRole);
-        role.setText(obj.getRole().toUpperCase());
         TextView id = (TextView) header.findViewById(R.id.id);
-        id.setText("ID : "+obj.getCitizenId());
+
+        avatar.setImageResource(R.drawable.ic_021_nurse);
+        role.setText(R.string.nurse);
+        id.setText("เลขประจำตัว: "+obj.getCitizenId());
     }
 
     @Override
@@ -143,9 +140,6 @@ public class Setting extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -161,7 +155,7 @@ public class Setting extends AppCompatActivity
                 Intent it = new Intent(Setting.this, WalkInActivity.class);
                 startActivity(it);
             } else {
-                Toast.makeText(getApplicationContext(),"ไม่อนุญาตให้เข้าได้",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"คุณต้องมีสิทธิ์เข้าถึง",Toast.LENGTH_SHORT).show();
             }
         } else if (id == R.id.nav_phone) {
             Intent it = new Intent(Setting.this, InAppActivity.class);
@@ -171,14 +165,14 @@ public class Setting extends AppCompatActivity
                 Intent it = new Intent(Setting.this, CallQueue.class);
                 startActivity(it);
             } else {
-                Toast.makeText(getApplicationContext(),"ไม่อนุญาตให้เข้าได้",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"คุณต้องมีสิทธิ์เข้าถึง",Toast.LENGTH_SHORT).show();
             }
         } else if (id == R.id.nav_setting) {
             if (obj.getRole().equals("nurse")){
                 Intent it = new Intent(Setting.this, Setting.class);
                 startActivity(it);
             } else {
-                Toast.makeText(getApplicationContext(),"ไม่อนุญาตให้เข้าได้",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"คุณต้องมีสิทธิ์เข้าถึง",Toast.LENGTH_SHORT).show();
             }
 
         } else if (id == R.id.nav_logout) {

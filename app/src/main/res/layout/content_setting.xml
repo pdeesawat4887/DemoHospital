@@ -19,12 +19,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingBottom="50dp"
-            android:paddingLeft="25dp">
+            android:paddingBottom="50dp">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_001_trash_2"
+                android:background="@drawable/ic_008_can"
                 />
 
 

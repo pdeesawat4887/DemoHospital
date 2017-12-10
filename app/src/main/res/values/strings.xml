@@ -23,4 +23,6 @@
     <string name="process">กำลังโหลดข้อมูล...</string>
     <string name="reset">รีเซ็ตข้อมูลเป็นค่าเริ่มต้น</string>
     <string name="reset_text">คืนค่าเริ่มต้นฐานข้อมูล</string>
+    <string name="logout">ออกจากระบบ</string>
+    <string name="header_Id">เลข</string>
 </resources>

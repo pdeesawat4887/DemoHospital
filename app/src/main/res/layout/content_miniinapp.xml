@@ -26,11 +26,11 @@
                 android:id="@+id/inappbtn"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:background="@drawable/circle_inapp"
+                android:background="@drawable/circle_manage"
                 android:drawableTop="@drawable/ic_035_smartphone_2"
                 android:paddingTop="20dp"
                 android:text="@string/walkin"
-                android:textColor="#2364AA"
+                android:textColor="#f4f4f4"
                 android:textSize="22sp"/>
         </LinearLayout>
     </LinearLayout>
@@ -43,7 +43,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_002_time_5"
+            android:background="@drawable/ic_010_time_2"
             android:alpha="0.85"/>
         <TextView
             android:id="@+id/remainQueue"

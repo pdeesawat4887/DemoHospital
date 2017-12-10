@@ -63,6 +63,7 @@ public class CallQueue extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle("เรียกคิวผู้ป่วย");
+        toolbar.setTitleTextColor(getResources().getColor(R.color.titleBar));
         setSupportActionBar(toolbar);
 
         SharedPreferences mPrefs2 = getSharedPreferences("label", 0);
@@ -75,20 +76,20 @@ public class CallQueue extends AppCompatActivity
         TableRow tbrow0 = new TableRow(this);
         tbrow0.setPadding(0, 5, 10, 10);
         TextView tv0 = new TextView(this);
-        tv0.setText(" คิว ");
-        tv0.setTextColor(getResources().getColor(R.color.tableTitle));
+        tv0.setText("  คิว  ");
+        tv0.setTextColor(getResources().getColor(R.color.callQueue));
         tv0.setGravity(Gravity.CENTER);
         tv0.setTextSize(18);
         tbrow0.addView(tv0);
         TextView tv1 = new TextView(this);
-        tv1.setText(" เวลาโดยประมาณ ");
-        tv1.setTextColor(getResources().getColor(R.color.tableTitle));
+        tv1.setText("  เวลาโดยประมาณ  ");
+        tv1.setTextColor(getResources().getColor(R.color.callQueue));
         tv1.setGravity(Gravity.CENTER);
         tv1.setTextSize(18);
         tbrow0.addView(tv1);
         final TextView tv2 = new TextView(this);
-        tv2.setText(" สถานะ ");
-        tv2.setTextColor(getResources().getColor(R.color.tableTitle));
+        tv2.setText("  สถานะ  ");
+        tv2.setTextColor(getResources().getColor(R.color.callQueue));
         tv2.setGravity(Gravity.CENTER);
         tv2.setTextSize(18);
         tbrow0.addView(tv2);
@@ -140,16 +141,13 @@ public class CallQueue extends AppCompatActivity
         View header=navigationView.getHeaderView(0);
 
         ImageView avatar = (ImageView) header.findViewById(R.id.avatar);
-        if (obj.getRole().equals("nurse")){
-            avatar.setImageResource(R.drawable.ic_021_nurse);
-        } else {
-            avatar.setImageResource(R.drawable.ic_009_sick);
-        }
-
         TextView role = (TextView)header.findViewById(R.id.userRole);
-        role.setText(obj.getRole().toUpperCase());
         TextView id = (TextView) header.findViewById(R.id.id);
-        id.setText("ID : "+obj.getCitizenId());
+
+        avatar.setImageResource(R.drawable.ic_021_nurse);
+        role.setText(R.string.nurse);
+        id.setText("เลขประจำตัว: "+obj.getCitizenId());
+
     }
 
     public void countdown(final TextView textTime, long time, long sec) {
@@ -229,9 +227,6 @@ public class CallQueue extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -247,7 +242,7 @@ public class CallQueue extends AppCompatActivity
                 Intent it = new Intent(CallQueue.this, WalkInActivity.class);
                 startActivity(it);
             } else {
-                Toast.makeText(getApplicationContext(),"ไม่อนุญาตให้เข้าได้",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"คุณต้องมีสิทธิ์เข้าถึง",Toast.LENGTH_SHORT).show();
             }
         } else if (id == R.id.nav_phone) {
             Intent it = new Intent(CallQueue.this, InAppActivity.class);
@@ -257,14 +252,14 @@ public class CallQueue extends AppCompatActivity
                 Intent it = new Intent(CallQueue.this, CallQueue.class);
                 startActivity(it);
             } else {
-                Toast.makeText(getApplicationContext(),"ไม่อนุญาตให้เข้าได้",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"คุณต้องมีสิทธิ์เข้าถึง",Toast.LENGTH_SHORT).show();
             }
         } else if (id == R.id.nav_setting) {
             if (obj.getRole().equals("nurse")){
                 Intent it = new Intent(CallQueue.this, Setting.class);
                 startActivity(it);
             } else {
-                Toast.makeText(getApplicationContext(),"ไม่อนุญาตให้เข้าได้",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"คุณต้องมีสิทธิ์เข้าถึง",Toast.LENGTH_SHORT).show();
             }
 
         } else if (id == R.id.nav_logout) {

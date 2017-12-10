@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="tableTitle">#FF8B94</color>
+    <color name="callQueue">#70C1B3</color>
+    <color name="titleBar">#2364AA</color>
 </resources>

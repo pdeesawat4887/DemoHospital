@@ -18,4 +18,11 @@ public class MyPreferences {
         return first;
     }
 
+    public static void setRe(Context context){
+        final SharedPreferences reader2 = context.getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = reader2.edit();
+        editor.putBoolean("is_first", true);
+        editor.commit();
+    }
+
 }
