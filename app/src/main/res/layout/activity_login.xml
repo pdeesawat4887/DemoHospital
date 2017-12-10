@@ -62,7 +62,7 @@
             android:id="@+id/lin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#2364AA"
+            android:background="@drawable/circle_login"
             android:text="@string/login"
             android:textColor="#d9e5f3"
             android:textStyle="bold"
@@ -70,7 +70,8 @@
             android:layout_gravity="bottom"
             android:padding="16dp"
             android:layout_marginBottom="50dp"
-            android:letterSpacing="0.5"/>
+            android:letterSpacing="0.5"
+            android:radius="1000dp"/>
 
 
     </LinearLayout>
