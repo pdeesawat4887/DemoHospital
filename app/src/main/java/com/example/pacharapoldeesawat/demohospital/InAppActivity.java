@@ -19,6 +19,7 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -169,7 +170,7 @@ public class InAppActivity extends AppCompatActivity
                             long checkLimit = (long) dataSnapshot.child(String.valueOf(checkTimeBox)).child("B").getValue();
 
                             if (checkLimit > 9) {
-                                Toast.makeText(getApplicationContext(), "ขออภัยในความไม่สะดวกตอนนี้คิวเต็ม กรุณากดใหม่ หลังจากนี้ ??? นาที", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "ขออภัยในความไม่สะดวกตอนนี้คิวเต็ม กรุณากดใหม่ หลังจากนี้ 30 นาที", Toast.LENGTH_LONG).show();
                             } else {
                                 if (dataSnapshot.child("queueB_Oneday").child(obj.getCitizenId()).exists()) {
                                     Toast.makeText(getApplicationContext(), "คุณทำการจองคิวไปแล้ว", Toast.LENGTH_LONG).show();
@@ -481,6 +482,7 @@ public class InAppActivity extends AppCompatActivity
                 new NotificationCompat.Builder(this) // this is context
                         .setTicker("QueueQ")
                         .setSmallIcon(R.drawable.ic_hospital_2)
+                        .setColor(ContextCompat.getColor(InAppActivity.this, R.color.titleBar))
                         .setContentTitle("ถึงเวลาคิว B"+queueB+" แล้วค่ะ")
                         .setContentText("ขอให้ท่านเดินทางมาที่โรงพยาบาลภายในเวลา 15 นาทีเพื่อทำการซักประวัติและคัดกรองผู้ป่วยเบื้องต้นด้วยค่ะ")
                         .setAutoCancel(false)

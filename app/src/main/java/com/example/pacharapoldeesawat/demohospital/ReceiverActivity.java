@@ -96,7 +96,6 @@ public class ReceiverActivity extends AppCompatActivity implements
         TimerTask task = new TimerTask() {
             public void run() {
                 Log.d("TAG", "location on");
-
                 loc2.setLatitude(loc2Latitude);
                 loc2.setLongitude(loc2Longitude);
                 distanceInMeters = loc1.distanceTo(loc2);

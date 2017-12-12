@@ -70,7 +70,6 @@
             android:layout_gravity="bottom"
             android:padding="16dp"
             android:layout_marginBottom="50dp"
-            android:letterSpacing="0.5"
             android:radius="1000dp"/>
 
 
@@ -82,8 +81,8 @@
         <ImageView
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/ic_005_credit_card"
-            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_001_id_card_2"
+            android:layout_marginTop="50dp"
             />
     </LinearLayout>
 </RelativeLayout>
