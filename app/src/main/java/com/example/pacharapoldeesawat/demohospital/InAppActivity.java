@@ -176,7 +176,6 @@ public class InAppActivity extends AppCompatActivity
                                     Toast.makeText(getApplicationContext(), "คุณทำการจองคิวไปแล้ว", Toast.LENGTH_LONG).show();
                                 } else {
                                     if (distanceInMeters > farDistance) {
-
                                         Toast.makeText(getApplicationContext(), "คุณอยู่ห่างจากโรงพยาบาลเกิน "+ (farDisInt/1000) +" กิโลเมตร", Toast.LENGTH_LONG).show();
                                         Log.d("TAG_LOCATION", String.valueOf(distanceInMeters));
                                     } else {
@@ -482,7 +481,7 @@ public class InAppActivity extends AppCompatActivity
                 new NotificationCompat.Builder(this) // this is context
                         .setTicker("QueueQ")
                         .setSmallIcon(R.drawable.ic_hospital_2)
-                        .setColor(ContextCompat.getColor(InAppActivity.this, R.color.titleBar))
+                        .setColor(ContextCompat.getColor(InAppActivity.this, R.color.tableTitle))
                         .setContentTitle("ถึงเวลาคิว B"+queueB+" แล้วค่ะ")
                         .setContentText("ขอให้ท่านเดินทางมาที่โรงพยาบาลภายในเวลา 15 นาทีเพื่อทำการซักประวัติและคัดกรองผู้ป่วยเบื้องต้นด้วยค่ะ")
                         .setAutoCancel(false)
