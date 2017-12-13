@@ -7,12 +7,12 @@ import static org.junit.Assert.*;
 public class testCheckTimeBox {
     @Test
     public void checkTimeBoxTestOne() {
-        assertEquals(4, CheckTimeBox.checkTimeBox(14, 32));
+        assertEquals(4, CheckTimeBox.checkTimeBox(22, 32));
     }
 
     @Test
     public void checkTimeBoxTestTwo() {
-        assertEquals(5, CheckTimeBox.checkTimeBox(15, 2));
+        assertEquals(5, CheckTimeBox.checkTimeBox(23, 2));
     }
 
     @Test
@@ -22,12 +22,12 @@ public class testCheckTimeBox {
 
     @Test
     public void checkTimeBoxTestFive() {
-        assertEquals(10, CheckTimeBox.checkTimeBox(17, 30));
+        assertEquals(10, CheckTimeBox.checkTimeBox(1, 30));
     }
 
     @Test
     public void checkTimeBoxTestSix() {
-        assertEquals(8, CheckTimeBox.checkTimeBox(16, 59));
+        assertEquals(8, CheckTimeBox.checkTimeBox(0, 59));
     }
 
     @Test
