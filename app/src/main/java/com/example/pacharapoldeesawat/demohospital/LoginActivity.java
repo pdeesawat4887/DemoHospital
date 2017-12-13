@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +17,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 
 import rebus.permissionutils.PermissionEnum;
@@ -47,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         PermissionManager.with(this)
-                .permission(PermissionEnum.ACCESS_FINE_LOCATION, PermissionEnum.ACCESS_COARSE_LOCATION) // You can put all permissions here
+                .permission(PermissionEnum.ACCESS_FINE_LOCATION, PermissionEnum.ACCESS_COARSE_LOCATION)
                 .askagain(true)
                 .ask();
 
@@ -56,12 +54,11 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences restartCheck = getSharedPreferences("label", 0);
         boolean checkRestart = restartCheck.getBoolean("restart", false);
 
-        if (checkRestart){
+        if (checkRestart) {
             isFirstTime = true;
         }
 
-        Log.i("First time", String.valueOf(isFirstTime));
-        if (!isFirstTime){
+        if (!isFirstTime) {
             mPrefs = getSharedPreferences("label", 0);
             Gson gson = new Gson();
             String json = mPrefs.getString("MyObjectUser", "");
@@ -91,14 +88,11 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    FirebaseMessaging.getInstance().subscribeToTopic("demoFCM");
-
                     string2 = usrusr.getText().toString();
-                    if (string2 == null){
+                    if (string2 == null) {
                         Toast.makeText(LoginActivity.this, "กรุณาใส่เลขประจำจัวประชาชน", Toast.LENGTH_SHORT).show();
                     }
                     final User person = new User();
-
                     final DatabaseReference root = FirebaseDatabase.getInstance().getReference();
                     DatabaseReference users = root.child("users");
                     users.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -111,15 +105,13 @@ public class LoginActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot snapshot) {
                             if (snapshot.child(string2).exists()) {
                                 Toast.makeText(LoginActivity.this, string2 + " ลงชื่อเข้าใช้งาน", Toast.LENGTH_SHORT).show();
-                                //Log.i("First Store", mPrefs.getString("citizenId", null));
-                                String xxx = snapshot.child(string2).getValue(String.class);
+                                String userRole = snapshot.child(string2).getValue(String.class);
                                 person.setCitizenId(string2);
-                                person.setRole(xxx);
+                                person.setRole(userRole);
                                 SharedPreferences m2Prefs = getSharedPreferences("label", 0);
                                 SharedPreferences.Editor prefsEditor2 = m2Prefs.edit();
                                 Gson gson2 = new Gson();
                                 String json2 = gson2.toJson(person);
-                                Log.i("json", json2);
                                 prefsEditor2.putString("MyObjectUser", json2);
                                 prefsEditor2.commit();
 
