@@ -1,6 +1,5 @@
 package com.example.pacharapoldeesawat.demohospital;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,8 +31,8 @@ public class LogoutActivity extends AppCompatActivity {
                         SharedPreferences prefs = getSharedPreferences("label", 0);
                         prefs.edit().clear().commit();
                         clearApplicationData();
-                        Intent ii = getBaseContext().getPackageManager().getLaunchIntentForPackage( getBaseContext().getPackageName() );
-                        ii.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        Intent intentApp = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
+                        intentApp.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                         SharedPreferences restartPerf = getSharedPreferences("label", 0);
                         SharedPreferences.Editor editor = restartPerf.edit();
@@ -41,13 +40,13 @@ public class LogoutActivity extends AppCompatActivity {
                         editor.putBoolean("restart", true);
                         editor.commit();
 
-                        startActivity(ii);
+                        startActivity(intentApp);
                     }
                 })
                 .setNegativeButton("ยกเลิก", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(LogoutActivity.this, "ยกเลิก",Toast.LENGTH_LONG).show();
+                        Toast.makeText(LogoutActivity.this, "ยกเลิก", Toast.LENGTH_LONG).show();
                         Intent it = new Intent(LogoutActivity.this, InAppActivity.class);
                         startActivity(it);
                     }
