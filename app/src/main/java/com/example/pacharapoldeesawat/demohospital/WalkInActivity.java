@@ -76,8 +76,10 @@ public class WalkInActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 try {
-                    InsertQueue.updateQueue("A", obj.getCitizenId());
-                    Toast.makeText(WalkInActivity.this, "จองคิว A" + (countA+1) + " เรียบร้อยแล้ว", Toast.LENGTH_SHORT).show();
+                    InsertQueue.updateQueue("A", obj.getCitizenId(), WalkInActivity.this);
+                    if (InsertQueue.getTimeB() != 0){
+                        Toast.makeText(WalkInActivity.this, "จองคิว A" + (countA+1) + " เรียบร้อยแล้ว", Toast.LENGTH_SHORT).show();
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
