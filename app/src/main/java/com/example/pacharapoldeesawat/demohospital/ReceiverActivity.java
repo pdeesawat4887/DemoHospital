@@ -47,8 +47,8 @@ public class ReceiverActivity extends AppCompatActivity implements
     private long FASTEST_INTERVAL = 2000;       // 2 sec
     private LocationManager locationManager;
 
-    private final double hospitalLat = 13.722385;
-    private final double hospitalLong = 100.784024;
+    private final double HOSPITALLAT = 13.722385;
+    private final double HOSPITALLONG = 100.784024;
     Location loc2;
     Location loc1;
     Timer timer;
@@ -84,11 +84,11 @@ public class ReceiverActivity extends AppCompatActivity implements
         textView = (TextView) findViewById(R.id.noti_distance);
         timeTextView = (TextView) findViewById(R.id.noti_time_to_travel);
 
-        queue.setText("คิวของคุณคือ "+queueB);
+        queue.setText("คิวของคุณคือ " + queueB);
 
         loc1 = new Location("");
-        loc1.setLatitude(hospitalLat);
-        loc1.setLongitude(hospitalLong);
+        loc1.setLatitude(HOSPITALLAT);
+        loc1.setLongitude(HOSPITALLONG);
         loc2 = new Location("");
 
         long INTERVAL_MSEC = 5000;
@@ -99,17 +99,17 @@ public class ReceiverActivity extends AppCompatActivity implements
                 loc2.setLatitude(loc2Latitude);
                 loc2.setLongitude(loc2Longitude);
                 distanceInMeters = loc1.distanceTo(loc2);
-                final int minTime = (int) (17*distanceInMeters/1600);
-                final int maxTime = (int) (20*distanceInMeters/1600);
+                final int minTime = (int) (17 * distanceInMeters / 1600);
+                final int maxTime = (int) (20 * distanceInMeters / 1600);
                 Log.d("TAG_VECTOR", String.valueOf(distanceInMeters));
                 Log.d("TAG_VECTOR", String.valueOf(maxTime));
                 Log.d("TAG_VECTOR", String.valueOf(minTime));
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (String.valueOf(distanceInMeters).indexOf('E') == -1){
-                            textView.setText("คุณห่างจากโรงพยาบาล "+distanceInMeters+" เมตร");
-                            timeTextView.setText("ใช้เวลาในการเดินประมาณ "+minTime+" - "+maxTime+" นาที");
+                        if (String.valueOf(distanceInMeters).indexOf('E') == -1) {
+                            textView.setText("คุณห่างจากโรงพยาบาล " + distanceInMeters + " เมตร");
+                            timeTextView.setText("ใช้เวลาในการเดินประมาณ " + minTime + " - " + maxTime + " นาที");
                         }
                     }
                 });
@@ -120,6 +120,7 @@ public class ReceiverActivity extends AppCompatActivity implements
 
 
     }
+
     private boolean isLocationEnabled() {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
@@ -212,8 +213,6 @@ public class ReceiverActivity extends AppCompatActivity implements
         String msg = "Updated Location: " +
                 Double.toString(location.getLatitude()) + "," +
                 Double.toString(location.getLongitude());
-//        Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + location.getLatitude() + "\nLong: " + location.getLongitude(), Toast.LENGTH_LONG).show();
-        //Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         loc2Latitude = location.getLatitude();
         loc2Longitude = location.getLongitude();
         // You can now create a LatLng Object for use with maps
