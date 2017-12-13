@@ -53,11 +53,4 @@ public class GetTime {
         return min;
     }
 
-    public String getSec() {
-        return sec;
-    }
-
-    public Date getrealDate() {
-        return realDate;
-    }
 }
