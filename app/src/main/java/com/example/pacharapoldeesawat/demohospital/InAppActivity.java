@@ -103,7 +103,6 @@ public class InAppActivity extends AppCompatActivity
         prefsEditor2 = mPrefs2.edit();
 
 
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -125,13 +124,13 @@ public class InAppActivity extends AppCompatActivity
         root.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                remainQ.setText("รอคิวประมาณ " + (dataSnapshot.child("useQueue").getChildrenCount()*4) + " นาที");
+                remainQ.setText("รอคิวประมาณ " + (dataSnapshot.child("useQueue").getChildrenCount() * 4) + " นาที");
 
-                if (dataSnapshot.child("queueB_Oneday").child(obj.getCitizenId()).getValue() != null){
+                if (dataSnapshot.child("queueB_Oneday").child(obj.getCitizenId()).getValue() != null) {
                     queueB = (long) dataSnapshot.child("queueB_Oneday").child(obj.getCitizenId()).getValue();
-                    prefsEditor2.putString("queueB", "B"+queueB).commit();
-                    youQ.setText("คิวของคุณคือ B"+ queueB);
-                }else {
+                    prefsEditor2.putString("queueB", "B" + queueB).commit();
+                    youQ.setText("คิวของคุณคือ B" + queueB);
+                } else {
                     youQ.setText("คุณยังไม่ได้ทำการจองคิว");
                 }
 
@@ -167,22 +166,27 @@ public class InAppActivity extends AppCompatActivity
                             GetTime time = new GetTime();
                             time.whatTimeIsIt();
                             int checkTimeBox = new CheckTimeBox().checkTimeBox(Integer.parseInt(time.getHour()), Integer.parseInt(time.getMin()));
-                            long checkLimit = (long) dataSnapshot.child(String.valueOf(checkTimeBox)).child("B").getValue();
 
-                            if (checkLimit > 9) {
-                                Toast.makeText(getApplicationContext(), "ขออภัยในความไม่สะดวกตอนนี้คิวเต็ม กรุณากดใหม่ หลังจากนี้ 30 นาที", Toast.LENGTH_LONG).show();
-                            } else {
-                                if (dataSnapshot.child("queueB_Oneday").child(obj.getCitizenId()).exists()) {
-                                    Toast.makeText(getApplicationContext(), "คุณทำการจองคิวไปแล้ว", Toast.LENGTH_LONG).show();
+                            if (checkTimeBox != 0) {
+                                long checkLimit = (long) dataSnapshot.child(String.valueOf(checkTimeBox)).child("B").getValue();
+
+                                if (checkLimit > 9) {
+                                    Toast.makeText(getApplicationContext(), "ขออภัยในความไม่สะดวกตอนนี้คิวเต็ม กรุณากดใหม่ หลังจากนี้ 30 นาที", Toast.LENGTH_LONG).show();
                                 } else {
-                                    if (distanceInMeters > farDistance) {
-                                        Toast.makeText(getApplicationContext(), "คุณอยู่ห่างจากโรงพยาบาลเกิน "+ (farDisInt/1000) +" กิโลเมตร", Toast.LENGTH_LONG).show();
-                                        Log.d("TAG_LOCATION", String.valueOf(distanceInMeters));
+                                    if (dataSnapshot.child("queueB_Oneday").child(obj.getCitizenId()).exists()) {
+                                        Toast.makeText(getApplicationContext(), "คุณทำการจองคิวไปแล้ว", Toast.LENGTH_LONG).show();
                                     } else {
-                                        InsertQueue newQueue = new InsertQueue();
-                                        newQueue.updateQueue("B", obj.getCitizenId());
+                                        if (distanceInMeters > farDistance) {
+                                            Toast.makeText(getApplicationContext(), "คุณอยู่ห่างจากโรงพยาบาลเกิน " + (farDisInt / 1000) + " กิโลเมตร", Toast.LENGTH_LONG).show();
+                                            Log.d("TAG_LOCATION", String.valueOf(distanceInMeters));
+                                        } else {
+                                            InsertQueue newQueue = new InsertQueue();
+                                            newQueue.updateQueue("B", obj.getCitizenId(), InAppActivity.this);
+                                        }
                                     }
                                 }
+                            } else{
+                                Toast.makeText(InAppActivity.this, "ขณะนี้ระบบปิดรับการจองคิวแล้ว", Toast.LENGTH_SHORT).show();
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -206,20 +210,20 @@ public class InAppActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        View header=navigationView.getHeaderView(0);
+        View header = navigationView.getHeaderView(0);
 
         ImageView avatar = (ImageView) header.findViewById(R.id.avatar);
-        TextView role = (TextView)header.findViewById(R.id.userRole);
+        TextView role = (TextView) header.findViewById(R.id.userRole);
         TextView id = (TextView) header.findViewById(R.id.id);
 
-        if (obj.getRole().equals("nurse")){
+        if (obj.getRole().equals("nurse")) {
             avatar.setImageResource(R.drawable.ic_021_nurse);
             role.setText(R.string.nurse);
         } else {
             avatar.setImageResource(R.drawable.ic_009_sick);
             role.setText(R.string.in_patient);
         }
-        id.setText("เลขประจำตัว: "+obj.getCitizenId());
+        id.setText("เลขประจำตัว: " + obj.getCitizenId());
     }
 
     @Override
@@ -474,7 +478,7 @@ public class InAppActivity extends AppCompatActivity
 //        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
         Intent intent = new Intent(this, ReceiverActivity.class);
-        PendingIntent activity = PendingIntent.getActivity(this,0,intent,0);
+        PendingIntent activity = PendingIntent.getActivity(this, 0, intent, 0);
 
 
         Notification notification =
@@ -482,7 +486,7 @@ public class InAppActivity extends AppCompatActivity
                         .setTicker("QueueQ")
                         .setSmallIcon(R.drawable.ic_hospital_2)
                         .setColor(ContextCompat.getColor(InAppActivity.this, R.color.tableTitle))
-                        .setContentTitle("ถึงเวลาคิว B"+queueB+" แล้วค่ะ")
+                        .setContentTitle("ถึงเวลาคิว B" + queueB + " แล้วค่ะ")
                         .setContentText("ขอให้ท่านเดินทางมาที่โรงพยาบาลภายในเวลา 15 นาทีเพื่อทำการซักประวัติและคัดกรองผู้ป่วยเบื้องต้นด้วยค่ะ")
                         .setAutoCancel(false)
                         .setContentIntent(activity)
