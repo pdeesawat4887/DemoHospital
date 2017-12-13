@@ -26,13 +26,13 @@ public class Splash extends AppCompatActivity {
         int screenHeight = displaymetrics.heightPixels;
         int screenWidth = displaymetrics.widthPixels;
 
-        int imgHeight = (int) (screenHeight* 0.50);
-        int imgWidth = (int) (screenWidth* 0.50);
+        int imgHeight = (int) (screenHeight * 0.50);
+        int imgWidth = (int) (screenWidth * 0.50);
 
         myImageView.getLayoutParams().height = imgHeight;
         myImageView.getLayoutParams().width = imgWidth;
 
-        new Handler().postDelayed(new Runnable(){
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
