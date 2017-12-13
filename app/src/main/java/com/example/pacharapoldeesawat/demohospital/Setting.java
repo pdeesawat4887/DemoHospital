@@ -52,7 +52,6 @@ public class Setting extends AppCompatActivity
         Button updateDistance = findViewById(R.id.resetDistanceBtn);
         final EditText setDistance = findViewById(R.id.setFarDistance);
 
-
         updateDistance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,8 +59,8 @@ public class Setting extends AppCompatActivity
                 mainRoot.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        mainRoot.child("distance").setValue(Float.parseFloat(String.valueOf(setDistance.getText()))*1000);
-                        Toast.makeText(getApplicationContext(), "เปลี่ยนแปลงระยะห่างเรียบร้อย",Toast.LENGTH_SHORT).show();
+                        mainRoot.child("distance").setValue(Float.parseFloat(String.valueOf(setDistance.getText())) * 1000);
+                        Toast.makeText(getApplicationContext(), "เปลี่ยนแปลงระยะห่างเรียบร้อย", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -88,7 +87,7 @@ public class Setting extends AppCompatActivity
                         .setNegativeButton("ยกเลิก", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Toast.makeText(Setting.this, "ยกเลิก",Toast.LENGTH_LONG).show();
+                                Toast.makeText(Setting.this, "ยกเลิก", Toast.LENGTH_LONG).show();
                             }
                         });
                 builder.show();
@@ -104,15 +103,15 @@ public class Setting extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        View header=navigationView.getHeaderView(0);
+        View header = navigationView.getHeaderView(0);
 
         ImageView avatar = (ImageView) header.findViewById(R.id.avatar);
-        TextView role = (TextView)header.findViewById(R.id.userRole);
+        TextView role = (TextView) header.findViewById(R.id.userRole);
         TextView id = (TextView) header.findViewById(R.id.id);
 
         avatar.setImageResource(R.drawable.ic_021_nurse);
         role.setText(R.string.nurse);
-        id.setText("เลขประจำตัว: "+obj.getCitizenId());
+        id.setText("เลขประจำตัว: " + obj.getCitizenId());
     }
 
     @Override
@@ -151,28 +150,28 @@ public class Setting extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_walk) {
-            if (obj.getRole().equals("nurse")){
+            if (obj.getRole().equals("nurse")) {
                 Intent it = new Intent(Setting.this, WalkInActivity.class);
                 startActivity(it);
             } else {
-                Toast.makeText(getApplicationContext(),"คุณต้องมีสิทธิ์เข้าถึง",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "คุณต้องมีสิทธิ์เข้าถึง", Toast.LENGTH_SHORT).show();
             }
         } else if (id == R.id.nav_phone) {
             Intent it = new Intent(Setting.this, InAppActivity.class);
             startActivity(it);
         } else if (id == R.id.nav_manage) {
-            if (obj.getRole().equals("nurse")){
+            if (obj.getRole().equals("nurse")) {
                 Intent it = new Intent(Setting.this, CallQueue.class);
                 startActivity(it);
             } else {
-                Toast.makeText(getApplicationContext(),"คุณต้องมีสิทธิ์เข้าถึง",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "คุณต้องมีสิทธิ์เข้าถึง", Toast.LENGTH_SHORT).show();
             }
         } else if (id == R.id.nav_setting) {
-            if (obj.getRole().equals("nurse")){
+            if (obj.getRole().equals("nurse")) {
                 Intent it = new Intent(Setting.this, Setting.class);
                 startActivity(it);
             } else {
-                Toast.makeText(getApplicationContext(),"คุณต้องมีสิทธิ์เข้าถึง",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "คุณต้องมีสิทธิ์เข้าถึง", Toast.LENGTH_SHORT).show();
             }
 
         } else if (id == R.id.nav_logout) {
@@ -187,10 +186,10 @@ public class Setting extends AppCompatActivity
         return true;
     }
 
-    public void resetDatabase(){
+    public void resetDatabase() {
         DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-        int timebox[] = {1,2,3,4,5,6,7,8,9,10};
-        for (int child:timebox){
+        int timeBox[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        for (int child : timeBox) {
             root.child(String.valueOf(child)).child("A").setValue(0);
             root.child(String.valueOf(child)).child("B").setValue(0);
         }
@@ -200,6 +199,6 @@ public class Setting extends AppCompatActivity
         root.child("useQueue").removeValue();
         root.child("queueB_Oneday").removeValue();
         root.child("distance").setValue(1500);
-        Toast.makeText(Setting.this, "คืนค่าเริ่มต้นสำเร็จ",Toast.LENGTH_LONG).show();
+        Toast.makeText(Setting.this, "คืนค่าเริ่มต้นสำเร็จ", Toast.LENGTH_LONG).show();
     }
 }
